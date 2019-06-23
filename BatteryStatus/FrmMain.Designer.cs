@@ -252,7 +252,6 @@
             this.ChBAutoRun.TabIndex = 16;
             this.ChBAutoRun.Text = "Iniciar &automáticamente";
             this.ChBAutoRun.UseVisualStyleBackColor = true;
-            this.ChBAutoRun.CheckedChanged += new System.EventHandler(this.ChBAutoRun_CheckedChanged);
             // 
             // FrmMain
             // 

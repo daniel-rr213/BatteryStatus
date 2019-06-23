@@ -25,8 +25,13 @@ namespace BatteryStatus
             PcInnactivity = new PcInnactivity();
 
             _reg = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            var autoRun = _reg?.GetValue(_applicationName) != null;
+            ChBAutoRun.Checked = autoRun;
+            ChBAutoRun.CheckStateChanged += ChBAutoRun_CheckStateChanged;
             _applicationPath = System.Reflection.Assembly.GetEntryAssembly()?.Location;
         }
+
+        private void ChBAutoRun_CheckStateChanged(object sender, EventArgs e) => ChangeAutoRun(((CheckBox)sender).Checked);
 
         private void VoiceCompleted() => Invoke(new Action(() =>
         {
@@ -141,8 +146,6 @@ namespace BatteryStatus
             Show();
             WindowState = FormWindowState.Normal;
         }
-
-        private void ChBAutoRun_CheckedChanged(object sender, EventArgs e) => ChangeAutoRun(((CheckBox)sender).Checked);
 
         public void ChangeAutoRun(bool autoRun)
         {
