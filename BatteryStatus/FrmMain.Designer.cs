@@ -1,6 +1,6 @@
 ﻿namespace BatteryStatus
 {
-    partial class Form1
+    partial class FrmMain
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -150,6 +150,7 @@
             // 
             // BtnPause
             // 
+            this.BtnPause.Enabled = false;
             this.BtnPause.Location = new System.Drawing.Point(119, 225);
             this.BtnPause.Name = "BtnPause";
             this.BtnPause.Size = new System.Drawing.Size(75, 29);
@@ -160,7 +161,8 @@
             // 
             // BtnResume
             // 
-            this.BtnResume.Location = new System.Drawing.Point(221, 225);
+            this.BtnResume.Enabled = false;
+            this.BtnResume.Location = new System.Drawing.Point(225, 225);
             this.BtnResume.Name = "BtnResume";
             this.BtnResume.Size = new System.Drawing.Size(75, 29);
             this.BtnResume.TabIndex = 12;
@@ -170,6 +172,7 @@
             // 
             // BtnChecked
             // 
+            this.BtnChecked.Enabled = false;
             this.BtnChecked.Location = new System.Drawing.Point(331, 224);
             this.BtnChecked.Name = "BtnChecked";
             this.BtnChecked.Size = new System.Drawing.Size(86, 29);
@@ -183,11 +186,11 @@
             this.TmWaitForResp.Interval = 60000;
             this.TmWaitForResp.Tick += new System.EventHandler(this.TmWaitForResp_Tick);
             // 
-            // Form1
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 320);
+            this.ClientSize = new System.Drawing.Size(443, 268);
             this.Controls.Add(this.BtnChecked);
             this.Controls.Add(this.BtnResume);
             this.Controls.Add(this.BtnPause);
@@ -202,8 +205,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtChargeStatus);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "FrmMain";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
