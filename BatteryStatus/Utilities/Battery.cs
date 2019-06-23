@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using static BatteryStatus.Battery.Alerts;
 
 namespace BatteryStatus
 {
@@ -12,7 +13,14 @@ namespace BatteryStatus
         public string Msg { get; private set; }
         private PowerStatus Status { get; } = SystemInformation.PowerStatus;
 
-        #region BatteryProperties
+        public enum Alerts
+        {
+            Any, LowBattery, HighBattery
+        }
+
+        public Alerts Alert { get; private set; }
+
+        #region PowerStatusProperties
         public string ChargeStatus => Status.BatteryChargeStatus == 0 ? "Normal" : Status.BatteryChargeStatus.ToString();
         public string BatteryFullLifetime => Status.BatteryFullLifetime == -1 ? "Unknown" : Status.BatteryFullLifetime.ToString();
         public string BatteryLifePercent => Status.BatteryLifePercent.ToString("P0");
@@ -45,18 +53,20 @@ namespace BatteryStatus
 
         public bool CheckPower()
         {
-            var adv = false;
             if (!Charging && (Status.BatteryLifePercent < (double)MinBatLevel / 100) && !_auxchk)
             {
                 Msg = $@"Batería por debajo del {MinBatLevel} %. Conecte la fuente de poder";
-                adv = true;
+                Alert = LowBattery;
             }
-            else if (Charging && (Status.BatteryLifePercent > (double)MaxBatLevel / 100) && !_auxchk)
+            else if (Charging && (Status.BatteryLifePercent > (double) MaxBatLevel / 100) && !_auxchk)
             {
                 Msg = $@"Batería por encima del {MaxBatLevel} %. Desconecte la fuente de poder";
-                adv = true;
+                Alert = HighBattery;
             }
-            if (!adv) return false;
+            else
+                Alert = Any;
+
+            if (Alert == Any) return false;
             _auxchk = true;
             return true;
         }

@@ -13,20 +13,14 @@ namespace BatteryStatus
         private readonly Queue<string> _msgs;
         private Thread _thSpeakMsgs;
         private readonly Action _spkCompleted;
-        public Voice()
-        {
-            _voice = new SpeechSynthesizer();
-            _voice.SelectVoice("Microsoft Sabina Desktop");
-            _msgs = new Queue<string>();
-        }
 
-        public Voice(Action ham)
+        public Voice(Action speakCompleted)
         {
             _voice = new SpeechSynthesizer();
             _voice.SelectVoice("Microsoft Sabina Desktop");
             _msgs = new Queue<string>();
-            _spkCompleted = ham;
-            _voice.StateChanged += _voice_StateChanged; ;
+            _spkCompleted = speakCompleted;
+            _voice.StateChanged += _voice_StateChanged;
         }
 
         private void _voice_StateChanged(object sender, StateChangedEventArgs e)
@@ -37,16 +31,6 @@ namespace BatteryStatus
         }
 
         public void Close() => _thSpeakMsgs?.Abort();
-
-        private void SpeakMsgs()
-        {
-            if (_voice.State != SynthesizerState.Paused)
-                while (_msgs.Count > 0)
-                {
-                    _voice.Speak(_msgs.Dequeue());
-                }
-            _thSpeakMsgs = null;
-        }
 
         public void GetVoices()
         {
@@ -92,6 +76,16 @@ namespace BatteryStatus
             _thSpeakMsgs.Start();
         }
 
+        private void SpeakMsgs()
+        {
+            if (_voice.State != SynthesizerState.Paused)
+                while (_msgs.Count > 0)
+                {
+                    _voice.Speak(_msgs.Dequeue());
+                }
+            _thSpeakMsgs = null;
+        }
+
         public void Pause()
         {
             try
@@ -103,6 +97,7 @@ namespace BatteryStatus
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         public void Resume()
         {
             try

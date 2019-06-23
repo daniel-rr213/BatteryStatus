@@ -7,18 +7,25 @@ namespace BatteryStatus
     {
         public Voice Voice;
         public Battery Battery;
-        public FrmMain()
-        {
-            InitializeComponent();
-        }
+        public PcInnactivity PcInnactivity;
+
+        private RegistryKey _reg;
+        private string _applicationName = "BatteryStatus";
+        private string _applicationPath;
+
+        private bool _voiceNotify;
+        public FrmMain() => InitializeComponent();
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Battery = new Battery();
             SystemEvents.PowerModeChanged += PowerModeChanged;
             ShowPowerStatus();
-            //Voice = new Voice();
             Voice = new Voice(VoiceCompleted);
+            PcInnactivity = new PcInnactivity();
+
+            _reg = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            _applicationPath = System.Reflection.Assembly.GetEntryAssembly()?.Location;
         }
 
         private void VoiceCompleted() => Invoke(new Action(() =>
@@ -31,11 +38,12 @@ namespace BatteryStatus
         {
             ShowPowerStatus();
             Battery.PowerModeChanged();
+            if (Battery.Charging && Battery.Alert == Battery.Alerts.LowBattery)
+                BtnChecked.Enabled = false;
         }
 
         private void ShowPowerStatus()
         {
-
             txtChargeStatus.Text = Battery.ChargeStatus;
             txtFullLifetime.Text = Battery.BatteryFullLifetime;
             txtCharge.Text = Battery.BatteryLifePercent;
@@ -46,9 +54,11 @@ namespace BatteryStatus
         private void TmCheckPower_Tick(object sender, EventArgs e)
         {
             ShowPowerStatus();
+            var idleTimeMin = PcInnactivity.GetIdleTimeMin();
+            _voiceNotify = idleTimeMin > PcInnactivity.MaxIdleTime;
+            TbIdleTime.Text = idleTimeMin.ToString("D");
             if (!Battery.CheckPower()) return;
-            BtnChecked.Enabled = true;
-            Voice.AddMessage(Battery.Msg);
+            NewNotification(Battery.Msg);
             TmWaitForResp.Enabled = true;
         }
 
@@ -64,7 +74,7 @@ namespace BatteryStatus
             TmWaitForResp.Enabled = false;
             BtnChecked.Enabled = false;
             if (!Battery.Charging)
-                Voice.AddMessage("No se ha detectado la conexión, puede perder información no salvada");
+                NewNotification("No se ha detectado la conexión, puede perder información no salvada");
         }
 
         #region Speak buttons
@@ -72,9 +82,10 @@ namespace BatteryStatus
         {
             try
             {
-                Voice.AddMessage($@"Batería al {txtCharge.Text}");
+                NewNotification($@"Batería al {txtCharge.Text}");
+                if (!_voiceNotify) return;
                 BtnPause.Enabled = true;
-                //BtnSpeak.Enabled = false;
+                BtnSpeak.Enabled = false;
             }
             catch (Exception exc)
             {
@@ -84,6 +95,7 @@ namespace BatteryStatus
 
         private void BtnPause_Click(object sender, EventArgs e)
         {
+            if (!_voiceNotify) return;
             Voice.Pause();
             BtnResume.Enabled = true;
             BtnPause.Enabled = false;
@@ -91,6 +103,7 @@ namespace BatteryStatus
 
         private void BtnResume_Click(object sender, EventArgs e)
         {
+            if (!_voiceNotify) return;
             Voice.Resume();
             BtnPause.Enabled = true;
             BtnResume.Enabled = false;
@@ -98,9 +111,52 @@ namespace BatteryStatus
 
         #endregion
 
-        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) => Voice.Close();
+
+        private void ShowToolStripMenuItem_Click(object sender, EventArgs e) => ShowForm();
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+        private void FrmMain_Move(object sender, EventArgs e)
         {
-            Voice.Close();
+            //Check when the app is minimized and hide it.
+            if (WindowState != FormWindowState.Minimized) return;
+            Hide();
+        }
+
+        private void NewNotification(string msg)
+        {
+            if (_voiceNotify)
+            {
+                BtnChecked.Enabled = true;
+                Voice.AddMessage(msg);
+            }
+            notifyIcon1.ShowBalloonTip(1000, "Notificación del estado de batería", msg, ToolTipIcon.Info);
+        }
+
+        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
+
+        private void ShowForm()
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void ChBAutoRun_CheckedChanged(object sender, EventArgs e) => ChangeAutoRun(((CheckBox)sender).Checked);
+
+        public void ChangeAutoRun(bool autoRun)
+        {
+            try
+            {
+                if (autoRun)
+                    _reg.SetValue(_applicationName, $"{_applicationPath} auto");
+                else
+                    _reg?.DeleteValue(_applicationName);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

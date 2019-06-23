@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.label1 = new System.Windows.Forms.Label();
             this.txtChargeStatus = new System.Windows.Forms.TextBox();
             this.txtFullLifetime = new System.Windows.Forms.TextBox();
@@ -45,6 +46,14 @@
             this.BtnResume = new System.Windows.Forms.Button();
             this.BtnChecked = new System.Windows.Forms.Button();
             this.TmWaitForResp = new System.Windows.Forms.Timer(this.components);
+            this.TbIdleTime = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ChBAutoRun = new System.Windows.Forms.CheckBox();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -144,40 +153,40 @@
             this.BtnSpeak.Name = "BtnSpeak";
             this.BtnSpeak.Size = new System.Drawing.Size(75, 29);
             this.BtnSpeak.TabIndex = 10;
-            this.BtnSpeak.Text = "Informe";
+            this.BtnSpeak.Text = "&Informe";
             this.BtnSpeak.UseVisualStyleBackColor = true;
             this.BtnSpeak.Click += new System.EventHandler(this.BtnSpeak_Click);
             // 
             // BtnPause
             // 
             this.BtnPause.Enabled = false;
-            this.BtnPause.Location = new System.Drawing.Point(119, 225);
+            this.BtnPause.Location = new System.Drawing.Point(117, 225);
             this.BtnPause.Name = "BtnPause";
             this.BtnPause.Size = new System.Drawing.Size(75, 29);
             this.BtnPause.TabIndex = 11;
-            this.BtnPause.Text = "Pausar";
+            this.BtnPause.Text = "&Pausar";
             this.BtnPause.UseVisualStyleBackColor = true;
             this.BtnPause.Click += new System.EventHandler(this.BtnPause_Click);
             // 
             // BtnResume
             // 
             this.BtnResume.Enabled = false;
-            this.BtnResume.Location = new System.Drawing.Point(225, 225);
+            this.BtnResume.Location = new System.Drawing.Point(221, 225);
             this.BtnResume.Name = "BtnResume";
-            this.BtnResume.Size = new System.Drawing.Size(75, 29);
+            this.BtnResume.Size = new System.Drawing.Size(80, 29);
             this.BtnResume.TabIndex = 12;
-            this.BtnResume.Text = "Continuar";
+            this.BtnResume.Text = "&Continuar";
             this.BtnResume.UseVisualStyleBackColor = true;
             this.BtnResume.Click += new System.EventHandler(this.BtnResume_Click);
             // 
             // BtnChecked
             // 
             this.BtnChecked.Enabled = false;
-            this.BtnChecked.Location = new System.Drawing.Point(331, 224);
+            this.BtnChecked.Location = new System.Drawing.Point(330, 224);
             this.BtnChecked.Name = "BtnChecked";
             this.BtnChecked.Size = new System.Drawing.Size(86, 29);
             this.BtnChecked.TabIndex = 13;
-            this.BtnChecked.Text = "Entendido";
+            this.BtnChecked.Text = "&Entendido";
             this.BtnChecked.UseVisualStyleBackColor = true;
             this.BtnChecked.Click += new System.EventHandler(this.BtnChecked_Click);
             // 
@@ -186,11 +195,73 @@
             this.TmWaitForResp.Interval = 60000;
             this.TmWaitForResp.Tick += new System.EventHandler(this.TmWaitForResp_Tick);
             // 
+            // TbIdleTime
+            // 
+            this.TbIdleTime.Location = new System.Drawing.Point(170, 269);
+            this.TbIdleTime.Name = "TbIdleTime";
+            this.TbIdleTime.ReadOnly = true;
+            this.TbIdleTime.Size = new System.Drawing.Size(217, 22);
+            this.TbIdleTime.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 272);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 17);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Idle Time";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowToolStripMenuItem,
+            this.CloseToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(130, 52);
+            // 
+            // ShowToolStripMenuItem
+            // 
+            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.ShowToolStripMenuItem.Text = "Mostart";
+            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
+            // 
+            // CloseToolStripMenuItem
+            // 
+            this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
+            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.CloseToolStripMenuItem.Text = "Cerrar";
+            this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Settings";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseDoubleClick);
+            // 
+            // ChBAutoRun
+            // 
+            this.ChBAutoRun.AutoSize = true;
+            this.ChBAutoRun.Location = new System.Drawing.Point(29, 297);
+            this.ChBAutoRun.Name = "ChBAutoRun";
+            this.ChBAutoRun.Size = new System.Drawing.Size(179, 21);
+            this.ChBAutoRun.TabIndex = 16;
+            this.ChBAutoRun.Text = "Iniciar &automáticamente";
+            this.ChBAutoRun.UseVisualStyleBackColor = true;
+            this.ChBAutoRun.CheckedChanged += new System.EventHandler(this.ChBAutoRun_CheckedChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 268);
+            this.ClientSize = new System.Drawing.Size(443, 330);
+            this.Controls.Add(this.ChBAutoRun);
+            this.Controls.Add(this.TbIdleTime);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.BtnChecked);
             this.Controls.Add(this.BtnResume);
             this.Controls.Add(this.BtnPause);
@@ -205,10 +276,13 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtChargeStatus);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Move += new System.EventHandler(this.FrmMain_Move);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,6 +306,13 @@
         private System.Windows.Forms.Button BtnResume;
         private System.Windows.Forms.Button BtnChecked;
         private System.Windows.Forms.Timer TmWaitForResp;
+        private System.Windows.Forms.TextBox TbIdleTime;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.CheckBox ChBAutoRun;
     }
 }
 
