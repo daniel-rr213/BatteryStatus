@@ -197,8 +197,8 @@ namespace BatteryStatus.Forms
             var voiceSettings = new VoiceSettings(Voice);
             voiceSettings.ShowDialog();
             if (!voiceSettings.Changes) return;
-            Voice.ChangeCurrentVoice(voiceSettings.Voice.CurrenVoice);
-            Voice.ChangeNotVolume(voiceSettings.Voice.NotVolume);
+            Voice.ChangeCurrentVoice(voiceSettings.CurrenVoice);
+            Voice.ChangeNotVolume(voiceSettings.NotVolume);
         }
 
         private void NotificationsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace BatteryStatus.Utilities
 
         private CoreAudioDevice _defaultPlaybackDevice;
         private double _prevVol;
-        public int NotVolume = 60;
+        public uint NotVolume = 60;
         private readonly Thread _thVolumeSett;
         public string CurrenVoice { get; private set; }
 
@@ -53,8 +53,17 @@ namespace BatteryStatus.Utilities
             foreach (var voice in installedVoices)
             {
                 var info = voice.VoiceInfo;
-                if (!Voices.Contains(info.Description))
-                    Voices.Add(info.Description);
+                var infoDescription = info.Description;
+                var auxvoice = string.Empty;
+                if (infoDescription.StartsWith("Microsoft"))
+                    auxvoice = infoDescription;
+                else
+                {
+                    //auxvoice = info.Name;
+                    continue;
+                }
+                if (!Voices.Contains(auxvoice))
+                    Voices.Add(auxvoice);
                 var audioFormats = "";
                 foreach (var fmt in info.SupportedAudioFormats)
                     audioFormats += $"{fmt.EncodingFormat.ToString()}\n";
@@ -63,7 +72,7 @@ namespace BatteryStatus.Utilities
                 Debug.WriteLine(@" Culture:       " + info.Culture);
                 Debug.WriteLine(@" Age:           " + info.Age);
                 Debug.WriteLine(@" Gender:        " + info.Gender);
-                Debug.WriteLine(@" Description:   " + info.Description);
+                Debug.WriteLine(@" Description:   " + infoDescription);
                 Debug.WriteLine(@" ID:            " + info.Id);
                 Debug.WriteLine(@" Enabled:       " + voice.Enabled);
                 Debug.WriteLine(info.SupportedAudioFormats.Count != 0
@@ -76,7 +85,7 @@ namespace BatteryStatus.Utilities
             }
         }
 
-        public string GetVoiceName(string voice)
+        public string GetMicrosoftVoiceName(string voice)
         {
             var voiceName = voice.Split('-');
             return voiceName[0].Trim();
@@ -85,7 +94,12 @@ namespace BatteryStatus.Utilities
         public void ChangeCurrentVoice(string voice)
         {
             CurrenVoice = voice;
-            SelectVoice(GetVoiceName(CurrenVoice));
+            var voiceName = "";
+            if (voice.StartsWith("Microsoft"))
+                voiceName = GetMicrosoftVoiceName(CurrenVoice);
+            else if (voice.StartsWith("eSpeak"))
+                voiceName = voice;
+            SelectVoice(voiceName);
         }
 
         private void ThLoadVolumeSett()
@@ -104,7 +118,7 @@ namespace BatteryStatus.Utilities
 
         public void ChangeSyntVolume(int vol) => _synth.Volume = vol;
 
-        public void ChangeNotVolume(int vol) => NotVolume = vol;
+        public void ChangeNotVolume(uint vol) => NotVolume = vol;
 
         private void SynthStateChanged(object sender, StateChangedEventArgs e)
         {
@@ -116,25 +130,40 @@ namespace BatteryStatus.Utilities
 
         public void AddMessage(string msg)
         {
-            _msgs.Enqueue(msg);
-            if (_defaultPlaybackDevice != null)
+            try
             {
-                _prevVol = _defaultPlaybackDevice.Volume;
-                _defaultPlaybackDevice.Volume = NotVolume;
+                _msgs.Enqueue(msg);
+                if (_defaultPlaybackDevice != null)
+                {
+                    _prevVol = _defaultPlaybackDevice.Volume;
+                    _defaultPlaybackDevice.Volume = NotVolume;
+                }
+                if (_thSpeakMsgs != null) return;
+                _thSpeakMsgs = new Thread(SpeakMsgs);
+                _thSpeakMsgs.Start();
+                Debug.WriteLine($"Launching new thread with the message: {msg}");
             }
-            if (_thSpeakMsgs != null) return;
-            _thSpeakMsgs = new Thread(SpeakMsgs);
-            _thSpeakMsgs.Start();
-            Debug.WriteLine($"Launching new thread with the message: {msg}");
+            catch (Exception exc)
+            {
+                throw new Exception(exc.Message);
+            }
         }
 
         private void SpeakMsgs()
         {
-            if (_synth.State != SynthesizerState.Paused)
-                while (_msgs.Count > 0)
-                    _synth.Speak(_msgs.Dequeue());
-            if (_defaultPlaybackDevice != null) _defaultPlaybackDevice.Volume = _prevVol;
-            _thSpeakMsgs = null;
+            try
+            {
+                if (_synth.State != SynthesizerState.Paused)
+                    while (_msgs.Count > 0)
+                        _synth.Speak(_msgs.Dequeue());
+                if (_defaultPlaybackDevice != null) _defaultPlaybackDevice.Volume = _prevVol;
+                _thSpeakMsgs = null;
+            }
+            catch (Exception exc)
+            {
+                //Debug.WriteLine(exc.Message);
+                throw new Exception(exc.Message);
+            }
         }
 
         public void Pause()

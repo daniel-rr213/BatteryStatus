@@ -6,28 +6,36 @@ namespace BatteryStatus.Forms
 {
     public partial class VoiceSettings : Form
     {
-        public Voice Voice { get; }
+        private readonly Voice _voice;
         public bool Changes { get; private set; }
+        public string CurrenVoice => _voice.CurrenVoice;
+        public uint NotVolume => _voice.NotVolume;
 
         public VoiceSettings(Voice voice)
         {
             InitializeComponent();
-            Voice = voice;
+            _voice = voice;
         }
 
         private void VoiceSettings_Load(object sender, EventArgs e)
         {
-            var voices = Voice.Voices;
+            var voices = _voice.Voices;
             if (voices == null) return;
+            var tbTestText = TbTest.Text;
+            TbTest.Text = "";
+            TbTest.Text = tbTestText;
+            //Fill the Combo Box with available voices.
             // ReSharper disable once CoVariantArrayConversion
             CbVoices.Items.AddRange(voices.ToArray());
-            var ind = voices.FindIndex(x => x.Contains(Voice.CurrenVoice));
-            CbVoices.SelectedIndex = ind;
+            //Select the spanish voice or the first.
+            CbVoices.SelectedIndex = voices.FindIndex(x => x.Contains(_voice.CurrenVoice));
+            //Concatenate the Numeric Up Down and Track bar value change event.
             NudTestVol.ValueChanged += TestVol_ValueChanged;
             TbTestVol.ValueChanged += TestVol_ValueChanged;
             NudNotVol.ValueChanged += NotVol_ValueChanged;
             TbNotVol.ValueChanged += NotVol_ValueChanged;
-            NudNotVol.Value = Voice.NotVolume;
+            //Set the Notification volume.
+            NudNotVol.Value = _voice.NotVolume;
         }
 
         private void TestVol_ValueChanged(object sender, EventArgs e)
@@ -66,15 +74,22 @@ namespace BatteryStatus.Forms
 
         private void BtnRead_Click(object sender, EventArgs e)
         {
-            Voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
-            Voice.ChangeSyntVolume(TbTestVol.Value);
-            Voice.AddMessage(TbTest.Text);
+            try
+            {
+                _voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
+                _voice.ChangeSyntVolume(TbTestVol.Value);
+                _voice.AddMessage(TbTest.Text);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            Voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
-            Voice.ChangeSyntVolume(TbTestVol.Value);
+            _voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
+            _voice.ChangeSyntVolume(TbTestVol.Value);
             Changes = true;
             Close();
         }

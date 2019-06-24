@@ -181,7 +181,7 @@
             this.TbTest.Name = "TbTest";
             this.TbTest.Size = new System.Drawing.Size(305, 80);
             this.TbTest.TabIndex = 3;
-            this.TbTest.Text = "This is a test.";
+            this.TbTest.Text = "Esta es una prueba";
             this.TbTest.TextChanged += new System.EventHandler(this.TbTest_TextChanged);
             // 
             // CbVoices
