@@ -1,4 +1,4 @@
-﻿namespace BatteryStatus
+﻿namespace BatteryStatus.Forms
 {
     partial class FrmMain
     {
@@ -153,7 +153,6 @@
             // 
             // TmCheckPower
             // 
-            this.TmCheckPower.Enabled = true;
             this.TmCheckPower.Interval = 1000;
             this.TmCheckPower.Tick += new System.EventHandler(this.TmCheckPower_Tick);
             // 
@@ -355,6 +354,7 @@
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.FrmMain_Shown);
             this.Move += new System.EventHandler(this.FrmMain_Move);
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);

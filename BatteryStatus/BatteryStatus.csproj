@@ -58,27 +58,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NotSetTime.cs">
+    <Compile Include="Forms\NotSetTime.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NotSetTime.Designer.cs">
+    <Compile Include="Forms\NotSetTime.Designer.cs">
       <DependentUpon>NotSetTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Battery.cs" />
-    <Compile Include="FrmMain.cs">
+    <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMain.Designer.cs">
+    <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\PcInnactivity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Voice.cs" />
-    <EmbeddedResource Include="FrmMain.resx">
+    <Compile Include="Forms\VoiceSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VoiceSettings.Designer.cs">
+      <DependentUpon>VoiceSettings.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NotSetTime.resx">
+    <EmbeddedResource Include="Forms\NotSetTime.resx">
       <DependentUpon>NotSetTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -90,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\VoiceSettings.resx">
+      <DependentUpon>VoiceSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

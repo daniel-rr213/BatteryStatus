@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using BatteryStatus.Utilities;
 using Microsoft.Win32;
-namespace BatteryStatus
+
+namespace BatteryStatus.Forms
 {
     public partial class FrmMain : Form
     {
@@ -10,16 +12,22 @@ namespace BatteryStatus
         public PcInnactivity PcInnactivity;
 
         private RegistryKey _reg;
-        private string _applicationName = "BatteryStatus";
+        private const string ApplicationName = "BatteryStatus";
         private string _applicationPath;
 
         private bool _voiceNotify;
 
         private uint _timeBattChk = 1;
         private uint _auxTimeBattChk = 1;
+        private readonly bool _show;
 
-        public FrmMain() => InitializeComponent();
+        public FrmMain(bool show)
+        {
+            InitializeComponent();
+            _show = show;
+        }
 
+        #region FormEvents
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -30,7 +38,9 @@ namespace BatteryStatus
                 Voice = new Voice(VoiceCompleted);
                 PcInnactivity = new PcInnactivity();
 
-                AutoRunCheck();
+                AutoRunLoad();
+
+                TmCheckPower.Start();
             }
             catch (Exception exc)
             {
@@ -38,10 +48,34 @@ namespace BatteryStatus
             }
         }
 
-        private void AutoRunCheck()
+        private void FrmMain_Shown(object sender, EventArgs e)
+        {
+            if (_show) return;
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) => Voice?.Close();
+
+        private void FrmMain_Move(object sender, EventArgs e)
+        {
+            //Check when the app is minimized and hide it.
+            if (WindowState != FormWindowState.Minimized) return;
+            Hide();
+        }
+
+        private void ShowForm()
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        #endregion
+
+        #region AutoRun
+        private void AutoRunLoad()
         {
             _reg = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            var autoRun = _reg?.GetValue(_applicationName) != null;
+            var autoRun = _reg?.GetValue(ApplicationName) != null;
             ChBAutoRun.Checked = autoRun;
             ChBAutoRun.CheckStateChanged += ChBAutoRun_CheckStateChanged;
             _applicationPath = System.Reflection.Assembly.GetEntryAssembly()?.Location;
@@ -49,11 +83,21 @@ namespace BatteryStatus
 
         private void ChBAutoRun_CheckStateChanged(object sender, EventArgs e) => ChangeAutoRun(((CheckBox)sender).Checked);
 
-        private void VoiceCompleted() => Invoke(new Action(() =>
+        public void ChangeAutoRun(bool autoRun)
         {
-            BtnPause.Enabled = false;
-            BtnSpeak.Enabled = true;
-        }));
+            try
+            {
+                if (autoRun)
+                    _reg.SetValue(ApplicationName, $"{_applicationPath} auto");
+                else
+                    _reg?.DeleteValue(ApplicationName);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
 
         private void PowerModeChanged(object sender, PowerModeChangedEventArgs e)
         {
@@ -88,6 +132,13 @@ namespace BatteryStatus
             Battery.WaitForResp();
             TmWaitForResp.Enabled = false;
         }
+        private void NewNotification(string msg)
+        {
+            BtnChecked.Enabled = true;
+            if (_voiceNotify)
+                Voice.AddMessage(msg);
+            notifyIcon1.ShowBalloonTip(1000, "Notificación del estado de batería", msg, ToolTipIcon.Info);
+        }
 
         private void BtnChecked_Click(object sender, EventArgs e)
         {
@@ -98,7 +149,7 @@ namespace BatteryStatus
                 NewNotification("No se ha detectado la conexión, puede perder información no salvada");
         }
 
-        #region Speak buttons
+        #region Speak Actions
         private void BtnSpeak_Click(object sender, EventArgs e)
         {
             try
@@ -130,58 +181,24 @@ namespace BatteryStatus
             BtnPause.Enabled = true;
             BtnResume.Enabled = false;
         }
+        private void VoiceCompleted() => Invoke(new Action(() =>
+        {
+            BtnPause.Enabled = false;
+            BtnSpeak.Enabled = true;
+        }));
 
         #endregion
 
-        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) => Voice.Close();
-
-        private void ShowToolStripMenuItem_Click(object sender, EventArgs e) => ShowForm();
-
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
-
-        private void FrmMain_Move(object sender, EventArgs e)
-        {
-            //Check when the app is minimized and hide it.
-            if (WindowState != FormWindowState.Minimized) return;
-            Hide();
-        }
-
-        private void NewNotification(string msg)
-        {
-            if (_voiceNotify)
-            {
-                BtnChecked.Enabled = true;
-                Voice.AddMessage(msg);
-            }
-            notifyIcon1.ShowBalloonTip(1000, "Notificación del estado de batería", msg, ToolTipIcon.Info);
-        }
-
-        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
-
-        private void ShowForm()
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
-        }
-
-        public void ChangeAutoRun(bool autoRun)
-        {
-            try
-            {
-                if (autoRun)
-                    _reg.SetValue(_applicationName, $"{_applicationPath} auto");
-                else
-                    _reg?.DeleteValue(_applicationName);
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        #region MenuStrip
         private void VoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //Recall for check if ther is an installed voice.
+            Voice.GetVoices();
+            var voiceSettings = new VoiceSettings(Voice);
+            voiceSettings.ShowDialog();
+            if (!voiceSettings.Changes) return;
+            Voice.ChangeCurrentVoice(voiceSettings.Voice.CurrenVoice);
+            Voice.ChangeNotVolume(voiceSettings.Voice.NotVolume);
         }
 
         private void NotificationsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -191,10 +208,22 @@ namespace BatteryStatus
             if (!notSetTime.Changes) return;
             TmCheckPower.Stop();
             TmWaitForResp.Stop();
-            TmCheckPower.Interval = (int)notSetTime.TimeBattChk * 1000;
-            TmWaitForResp.Interval = (int)notSetTime.AuxTimeBattChk * 60000;
+            _timeBattChk = notSetTime.TimeBattChk;
+            _auxTimeBattChk = notSetTime.AuxTimeBattChk;
+            TmCheckPower.Interval = (int)_timeBattChk * 1000;
+            TmWaitForResp.Interval = (int)_auxTimeBattChk * 60000;
             TmCheckPower.Start();
             TmWaitForResp.Start();
         }
+
+        #endregion
+
+        #region ContextMenuStrip
+        private void ShowToolStripMenuItem_Click(object sender, EventArgs e) => ShowForm();
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+        #endregion
+
+        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
     }
 }

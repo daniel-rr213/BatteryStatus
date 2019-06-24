@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
-using static BatteryStatus.Battery.Alerts;
 
-namespace BatteryStatus
+namespace BatteryStatus.Utilities
 {
     public class Battery
     {
@@ -42,17 +41,17 @@ namespace BatteryStatus
             if (!Charging && (Status.BatteryLifePercent < (double)MinBatLevel / 100) && !_auxchk)
             {
                 Msg = $@"Batería por debajo del {MinBatLevel} %. Conecte la fuente de poder";
-                Alert = LowBattery;
+                Alert = Alerts.LowBattery;
             }
             else if (Charging && (Status.BatteryLifePercent > (double) MaxBatLevel / 100) && !_auxchk)
             {
                 Msg = $@"Batería por encima del {MaxBatLevel} %. Desconecte la fuente de poder";
-                Alert = HighBattery;
+                Alert = Alerts.HighBattery;
             }
             else
-                Alert = Any;
+                Alert = Alerts.Any;
 
-            if (Alert == Any) return false;
+            if (Alert == Alerts.Any) return false;
             _auxchk = true;
             return true;
         }

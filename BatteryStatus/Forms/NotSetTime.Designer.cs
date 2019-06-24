@@ -1,4 +1,4 @@
-﻿namespace BatteryStatus
+﻿namespace BatteryStatus.Forms
 {
     partial class NotSetTime
     {
