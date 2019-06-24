@@ -14,17 +14,28 @@ namespace BatteryStatus
         private string _applicationPath;
 
         private bool _voiceNotify;
+
+        private uint _timeBattChk = 1;
+        private uint _auxTimeBattChk = 1;
+
         public FrmMain() => InitializeComponent();
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Battery = new Battery();
-            SystemEvents.PowerModeChanged += PowerModeChanged;
-            ShowPowerStatus();
-            Voice = new Voice(VoiceCompleted);
-            PcInnactivity = new PcInnactivity();
+            try
+            {
+                Battery = new Battery();
+                SystemEvents.PowerModeChanged += PowerModeChanged;
+                ShowPowerStatus();
+                Voice = new Voice(VoiceCompleted);
+                PcInnactivity = new PcInnactivity();
 
-            AutoRunCheck();
+                AutoRunCheck();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AutoRunCheck()
@@ -166,6 +177,24 @@ namespace BatteryStatus
             {
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void VoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NotificationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var notSetTime = new NotSetTime(_timeBattChk, _auxTimeBattChk);
+            notSetTime.ShowDialog();
+            if (!notSetTime.Changes) return;
+            TmCheckPower.Stop();
+            TmWaitForResp.Stop();
+            TmCheckPower.Interval = (int)notSetTime.TimeBattChk * 1000;
+            TmWaitForResp.Interval = (int)notSetTime.AuxTimeBattChk * 60000;
+            TmCheckPower.Start();
+            TmWaitForResp.Start();
         }
     }
 }

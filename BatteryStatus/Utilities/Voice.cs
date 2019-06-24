@@ -17,16 +17,24 @@ namespace BatteryStatus
         private readonly Action _spkCompleted;
 
         private readonly CoreAudioDevice _defaultPlaybackDevice;
-        private double _vol;
+        private double _prevVol;
+        public int Volume = 40;
 
         public Voice(Action speakCompleted)
         {
-            _voice = new SpeechSynthesizer();
-            _voice.SelectVoice("Microsoft Sabina Desktop");
-            _msgs = new Queue<string>();
-            _spkCompleted = speakCompleted;
-            _voice.StateChanged += _voice_StateChanged;
-            _defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
+            try
+            {
+                _voice = new SpeechSynthesizer();
+                _voice.SelectVoice("Microsoft Sabina Desktop");
+                _msgs = new Queue<string>();
+                _spkCompleted = speakCompleted;
+                _voice.StateChanged += _voice_StateChanged;
+                _defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
+            }
+            catch (Exception exc)
+            {
+                throw new Exception($"Error in voice settings.\n{exc}");
+            }
         }
 
         private void _voice_StateChanged(object sender, StateChangedEventArgs e)
@@ -77,8 +85,8 @@ namespace BatteryStatus
         public void AddMessage(string msg)
         {
             _msgs.Enqueue(msg);
-            _vol = _defaultPlaybackDevice.Volume;
-            _defaultPlaybackDevice.Volume = 80;
+            _prevVol = _defaultPlaybackDevice.Volume;
+            _defaultPlaybackDevice.Volume = Volume;
             if (_thSpeakMsgs != null) return;
             _thSpeakMsgs = new Thread(SpeakMsgs);
             _thSpeakMsgs.Start();
@@ -89,7 +97,7 @@ namespace BatteryStatus
             if (_voice.State != SynthesizerState.Paused)
                 while (_msgs.Count > 0)
                     _voice.Speak(_msgs.Dequeue());
-            _defaultPlaybackDevice.Volume = _vol;
+            _defaultPlaybackDevice.Volume = _prevVol;
             _thSpeakMsgs = null;
         }
 

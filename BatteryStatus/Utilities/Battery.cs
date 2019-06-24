@@ -34,21 +34,7 @@ namespace BatteryStatus
 
         public void PowerModeChanged()
         {
-            //PowerStatus ps = new PowerStatus();
             Charging = Status.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online;
-            //switch (e.Mode)
-            //{
-            //    case PowerModes.Resume:
-
-            //        break;
-            //    case PowerModes.StatusChange:
-            //        break;
-            //    case PowerModes.Suspend:
-            //        break;
-            //    default:
-            //        throw new ArgumentOutOfRangeException();
-            //}
-
         }
 
         public bool CheckPower()

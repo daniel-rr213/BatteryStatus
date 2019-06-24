@@ -53,13 +53,23 @@
             this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.ChBAutoRun = new System.Windows.Forms.CheckBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GbBatteryStatus = new System.Windows.Forms.GroupBox();
+            this.GbVoiceBtns = new System.Windows.Forms.GroupBox();
             this.contextMenuStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.GbBatteryStatus.SuspendLayout();
+            this.GbVoiceBtns.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 21);
+            this.label1.Location = new System.Drawing.Point(6, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 0;
@@ -67,7 +77,7 @@
             // 
             // txtChargeStatus
             // 
-            this.txtChargeStatus.Location = new System.Drawing.Point(170, 18);
+            this.txtChargeStatus.Location = new System.Drawing.Point(150, 15);
             this.txtChargeStatus.Name = "txtChargeStatus";
             this.txtChargeStatus.ReadOnly = true;
             this.txtChargeStatus.Size = new System.Drawing.Size(217, 22);
@@ -75,7 +85,7 @@
             // 
             // txtFullLifetime
             // 
-            this.txtFullLifetime.Location = new System.Drawing.Point(170, 57);
+            this.txtFullLifetime.Location = new System.Drawing.Point(150, 54);
             this.txtFullLifetime.Name = "txtFullLifetime";
             this.txtFullLifetime.ReadOnly = true;
             this.txtFullLifetime.Size = new System.Drawing.Size(217, 22);
@@ -84,7 +94,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 60);
+            this.label2.Location = new System.Drawing.Point(6, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 17);
             this.label2.TabIndex = 2;
@@ -92,7 +102,7 @@
             // 
             // txtCharge
             // 
-            this.txtCharge.Location = new System.Drawing.Point(170, 96);
+            this.txtCharge.Location = new System.Drawing.Point(150, 93);
             this.txtCharge.Name = "txtCharge";
             this.txtCharge.ReadOnly = true;
             this.txtCharge.Size = new System.Drawing.Size(217, 22);
@@ -101,7 +111,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 99);
+            this.label3.Location = new System.Drawing.Point(6, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 17);
             this.label3.TabIndex = 4;
@@ -109,7 +119,7 @@
             // 
             // txtLifeRemaining
             // 
-            this.txtLifeRemaining.Location = new System.Drawing.Point(170, 135);
+            this.txtLifeRemaining.Location = new System.Drawing.Point(150, 132);
             this.txtLifeRemaining.Name = "txtLifeRemaining";
             this.txtLifeRemaining.ReadOnly = true;
             this.txtLifeRemaining.Size = new System.Drawing.Size(217, 22);
@@ -118,7 +128,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 138);
+            this.label4.Location = new System.Drawing.Point(6, 135);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 17);
             this.label4.TabIndex = 6;
@@ -126,7 +136,7 @@
             // 
             // txtLineStatus
             // 
-            this.txtLineStatus.Location = new System.Drawing.Point(170, 174);
+            this.txtLineStatus.Location = new System.Drawing.Point(150, 171);
             this.txtLineStatus.Name = "txtLineStatus";
             this.txtLineStatus.ReadOnly = true;
             this.txtLineStatus.Size = new System.Drawing.Size(217, 22);
@@ -135,7 +145,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 177);
+            this.label5.Location = new System.Drawing.Point(6, 174);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 17);
             this.label5.TabIndex = 8;
@@ -149,7 +159,7 @@
             // 
             // BtnSpeak
             // 
-            this.BtnSpeak.Location = new System.Drawing.Point(13, 225);
+            this.BtnSpeak.Location = new System.Drawing.Point(6, 21);
             this.BtnSpeak.Name = "BtnSpeak";
             this.BtnSpeak.Size = new System.Drawing.Size(75, 29);
             this.BtnSpeak.TabIndex = 10;
@@ -160,7 +170,7 @@
             // BtnPause
             // 
             this.BtnPause.Enabled = false;
-            this.BtnPause.Location = new System.Drawing.Point(117, 225);
+            this.BtnPause.Location = new System.Drawing.Point(110, 21);
             this.BtnPause.Name = "BtnPause";
             this.BtnPause.Size = new System.Drawing.Size(75, 29);
             this.BtnPause.TabIndex = 11;
@@ -171,7 +181,7 @@
             // BtnResume
             // 
             this.BtnResume.Enabled = false;
-            this.BtnResume.Location = new System.Drawing.Point(221, 225);
+            this.BtnResume.Location = new System.Drawing.Point(214, 21);
             this.BtnResume.Name = "BtnResume";
             this.BtnResume.Size = new System.Drawing.Size(80, 29);
             this.BtnResume.TabIndex = 12;
@@ -182,7 +192,7 @@
             // BtnChecked
             // 
             this.BtnChecked.Enabled = false;
-            this.BtnChecked.Location = new System.Drawing.Point(330, 224);
+            this.BtnChecked.Location = new System.Drawing.Point(323, 20);
             this.BtnChecked.Name = "BtnChecked";
             this.BtnChecked.Size = new System.Drawing.Size(86, 29);
             this.BtnChecked.TabIndex = 13;
@@ -197,20 +207,20 @@
             // 
             // TbIdleTime
             // 
-            this.TbIdleTime.Location = new System.Drawing.Point(170, 269);
+            this.TbIdleTime.Location = new System.Drawing.Point(162, 346);
             this.TbIdleTime.Name = "TbIdleTime";
             this.TbIdleTime.ReadOnly = true;
-            this.TbIdleTime.Size = new System.Drawing.Size(217, 22);
-            this.TbIdleTime.TabIndex = 15;
+            this.TbIdleTime.Size = new System.Drawing.Size(56, 22);
+            this.TbIdleTime.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 272);
+            this.label6.Location = new System.Drawing.Point(18, 349);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 17);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Idle Time";
+            this.label6.Size = new System.Drawing.Size(125, 17);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Idle Time in Minuts";
             // 
             // contextMenuStrip1
             // 
@@ -246,42 +256,112 @@
             // ChBAutoRun
             // 
             this.ChBAutoRun.AutoSize = true;
-            this.ChBAutoRun.Location = new System.Drawing.Point(29, 297);
+            this.ChBAutoRun.Location = new System.Drawing.Point(12, 380);
             this.ChBAutoRun.Name = "ChBAutoRun";
             this.ChBAutoRun.Size = new System.Drawing.Size(179, 21);
-            this.ChBAutoRun.TabIndex = 16;
+            this.ChBAutoRun.TabIndex = 4;
             this.ChBAutoRun.Text = "Iniciar &automáticamente";
             this.ChBAutoRun.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(475, 28);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.voiceToolStripMenuItem,
+            this.notificationsToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // voiceToolStripMenuItem
+            // 
+            this.voiceToolStripMenuItem.Name = "voiceToolStripMenuItem";
+            this.voiceToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.voiceToolStripMenuItem.Text = "Voice";
+            this.voiceToolStripMenuItem.Click += new System.EventHandler(this.VoiceToolStripMenuItem_Click);
+            // 
+            // notificationsToolStripMenuItem
+            // 
+            this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.notificationsToolStripMenuItem.Text = "Notifications";
+            this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.NotificationsToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // GbBatteryStatus
+            // 
+            this.GbBatteryStatus.Controls.Add(this.label1);
+            this.GbBatteryStatus.Controls.Add(this.txtChargeStatus);
+            this.GbBatteryStatus.Controls.Add(this.label2);
+            this.GbBatteryStatus.Controls.Add(this.txtFullLifetime);
+            this.GbBatteryStatus.Controls.Add(this.label3);
+            this.GbBatteryStatus.Controls.Add(this.txtCharge);
+            this.GbBatteryStatus.Controls.Add(this.label4);
+            this.GbBatteryStatus.Controls.Add(this.txtLifeRemaining);
+            this.GbBatteryStatus.Controls.Add(this.label5);
+            this.GbBatteryStatus.Controls.Add(this.txtLineStatus);
+            this.GbBatteryStatus.Location = new System.Drawing.Point(12, 31);
+            this.GbBatteryStatus.Name = "GbBatteryStatus";
+            this.GbBatteryStatus.Size = new System.Drawing.Size(372, 208);
+            this.GbBatteryStatus.TabIndex = 0;
+            this.GbBatteryStatus.TabStop = false;
+            this.GbBatteryStatus.Text = "Battery Status";
+            // 
+            // GbVoiceBtns
+            // 
+            this.GbVoiceBtns.Controls.Add(this.BtnSpeak);
+            this.GbVoiceBtns.Controls.Add(this.BtnPause);
+            this.GbVoiceBtns.Controls.Add(this.BtnResume);
+            this.GbVoiceBtns.Controls.Add(this.BtnChecked);
+            this.GbVoiceBtns.Location = new System.Drawing.Point(12, 259);
+            this.GbVoiceBtns.Name = "GbVoiceBtns";
+            this.GbVoiceBtns.Size = new System.Drawing.Size(420, 66);
+            this.GbVoiceBtns.TabIndex = 1;
+            this.GbVoiceBtns.TabStop = false;
+            this.GbVoiceBtns.Text = "Voice control";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 330);
+            this.ClientSize = new System.Drawing.Size(475, 413);
+            this.Controls.Add(this.GbVoiceBtns);
+            this.Controls.Add(this.GbBatteryStatus);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.ChBAutoRun);
             this.Controls.Add(this.TbIdleTime);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.BtnChecked);
-            this.Controls.Add(this.BtnResume);
-            this.Controls.Add(this.BtnPause);
-            this.Controls.Add(this.BtnSpeak);
-            this.Controls.Add(this.txtLineStatus);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtLifeRemaining);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtCharge);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtFullLifetime);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtChargeStatus);
-            this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Move += new System.EventHandler(this.FrmMain_Move);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.GbBatteryStatus.ResumeLayout(false);
+            this.GbBatteryStatus.PerformLayout();
+            this.GbVoiceBtns.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,6 +392,13 @@
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.CheckBox ChBAutoRun;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.GroupBox GbBatteryStatus;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem voiceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notificationsToolStripMenuItem;
+        private System.Windows.Forms.GroupBox GbVoiceBtns;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
