@@ -24,6 +24,11 @@ namespace BatteryStatus
             Voice = new Voice(VoiceCompleted);
             PcInnactivity = new PcInnactivity();
 
+            AutoRunCheck();
+        }
+
+        private void AutoRunCheck()
+        {
             _reg = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             var autoRun = _reg?.GetValue(_applicationName) != null;
             ChBAutoRun.Checked = autoRun;
@@ -87,7 +92,8 @@ namespace BatteryStatus
         {
             try
             {
-                NewNotification($@"Batería al {txtCharge.Text}");
+                //NewNotification($@"Batería al {txtCharge.Text}");
+                Voice.AddMessage($@"Batería al {txtCharge.Text}");
                 if (!_voiceNotify) return;
                 BtnPause.Enabled = true;
                 BtnSpeak.Enabled = false;

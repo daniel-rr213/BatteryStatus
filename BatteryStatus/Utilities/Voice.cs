@@ -5,6 +5,8 @@ using System.Speech.Synthesis;
 using System.Threading;
 using System.Windows.Forms;
 
+using AudioSwitcher.AudioApi.CoreAudio;
+
 namespace BatteryStatus
 {
     public class Voice
@@ -14,6 +16,9 @@ namespace BatteryStatus
         private Thread _thSpeakMsgs;
         private readonly Action _spkCompleted;
 
+        private readonly CoreAudioDevice _defaultPlaybackDevice;
+        private double _vol;
+
         public Voice(Action speakCompleted)
         {
             _voice = new SpeechSynthesizer();
@@ -21,6 +26,7 @@ namespace BatteryStatus
             _msgs = new Queue<string>();
             _spkCompleted = speakCompleted;
             _voice.StateChanged += _voice_StateChanged;
+            _defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
         }
 
         private void _voice_StateChanged(object sender, StateChangedEventArgs e)
@@ -71,6 +77,8 @@ namespace BatteryStatus
         public void AddMessage(string msg)
         {
             _msgs.Enqueue(msg);
+            _vol = _defaultPlaybackDevice.Volume;
+            _defaultPlaybackDevice.Volume = 80;
             if (_thSpeakMsgs != null) return;
             _thSpeakMsgs = new Thread(SpeakMsgs);
             _thSpeakMsgs.Start();
@@ -80,9 +88,8 @@ namespace BatteryStatus
         {
             if (_voice.State != SynthesizerState.Paused)
                 while (_msgs.Count > 0)
-                {
                     _voice.Speak(_msgs.Dequeue());
-                }
+            _defaultPlaybackDevice.Volume = _vol;
             _thSpeakMsgs = null;
         }
 
