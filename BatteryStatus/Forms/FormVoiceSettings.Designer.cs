@@ -1,6 +1,6 @@
 ﻿namespace BatteryStatus.Forms
 {
-    partial class VoiceSettings
+    partial class FormVoiceSettings
     {
         /// <summary>
         /// Required designer variable.

@@ -58,11 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\NotSetTime.cs">
+    <Compile Include="Forms\FrmNotSetTime.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NotSetTime.Designer.cs">
-      <DependentUpon>NotSetTime.cs</DependentUpon>
+    <Compile Include="Forms\FrmNotSetTime.Designer.cs">
+      <DependentUpon>FrmNotSetTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Battery.cs" />
     <Compile Include="Forms\FrmMain.cs">
@@ -75,17 +75,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Voice.cs" />
-    <Compile Include="Forms\VoiceSettings.cs">
+    <Compile Include="Forms\FormVoiceSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\VoiceSettings.Designer.cs">
-      <DependentUpon>VoiceSettings.cs</DependentUpon>
+    <Compile Include="Forms\FormVoiceSettings.Designer.cs">
+      <DependentUpon>FormVoiceSettings.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NotSetTime.resx">
-      <DependentUpon>NotSetTime.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmNotSetTime.resx">
+      <DependentUpon>FrmNotSetTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,8 +96,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\VoiceSettings.resx">
-      <DependentUpon>VoiceSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormVoiceSettings.resx">
+      <DependentUpon>FormVoiceSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

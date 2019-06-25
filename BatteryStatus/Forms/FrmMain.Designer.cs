@@ -158,6 +158,7 @@
             // 
             // BtnSpeak
             // 
+            this.BtnSpeak.Enabled = false;
             this.BtnSpeak.Location = new System.Drawing.Point(6, 21);
             this.BtnSpeak.Name = "BtnSpeak";
             this.BtnSpeak.Size = new System.Drawing.Size(75, 29);
@@ -286,14 +287,14 @@
             // voiceToolStripMenuItem
             // 
             this.voiceToolStripMenuItem.Name = "voiceToolStripMenuItem";
-            this.voiceToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.voiceToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.voiceToolStripMenuItem.Text = "&Voice";
             this.voiceToolStripMenuItem.Click += new System.EventHandler(this.VoiceToolStripMenuItem_Click);
             // 
             // notificationsToolStripMenuItem
             // 
             this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.notificationsToolStripMenuItem.Text = "&Notifications";
             this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.NotificationsToolStripMenuItem_Click);
             // 

@@ -39,13 +39,16 @@ namespace BatteryStatus.Utilities
             }
             catch (Exception exc)
             {
-                throw new Exception($"Error in voice settings.\n{exc}");
+                throw new Exception($"Error en la configuración de la voz de la aplicación:\n{exc.Message}");
             }
         }
         public void GetVoices()
         {
             var installedVoices = _synth.GetInstalledVoices();
-            if (installedVoices.Count == 0) throw new Exception(@"No se encontraron voces instaladas");
+            // Variable for debug.
+            var installedVoicesCount = installedVoices.Count;
+            //installedVoicesCount = 0;
+            if (installedVoicesCount == 0) throw new Exception(@"No se encontraron voces instaladas");
             if (Voices == null)
                 Voices = new List<string>();
             // Output information about all of the installed voices.

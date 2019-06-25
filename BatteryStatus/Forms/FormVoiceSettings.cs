@@ -4,14 +4,14 @@ using BatteryStatus.Utilities;
 
 namespace BatteryStatus.Forms
 {
-    public partial class VoiceSettings : Form
+    public partial class FormVoiceSettings : Form
     {
         private readonly Voice _voice;
         public bool Changes { get; private set; }
         public string CurrenVoice => _voice.CurrenVoice;
         public uint NotVolume => _voice.NotVolume;
 
-        public VoiceSettings(Voice voice)
+        public FormVoiceSettings(Voice voice)
         {
             InitializeComponent();
             _voice = voice;

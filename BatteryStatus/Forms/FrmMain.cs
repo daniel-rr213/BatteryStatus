@@ -30,22 +30,21 @@ namespace BatteryStatus.Forms
         #region FormEvents
         private void Form1_Load(object sender, EventArgs e)
         {
+            AutoRunLoad();
+            Battery = new Battery();
+            PcInnactivity = new PcInnactivity();
+            SystemEvents.PowerModeChanged += PowerModeChanged;
+            ShowPowerStatus();
             try
             {
-                Battery = new Battery();
-                SystemEvents.PowerModeChanged += PowerModeChanged;
-                ShowPowerStatus();
                 Voice = new Voice(VoiceCompleted);
-                PcInnactivity = new PcInnactivity();
-
-                AutoRunLoad();
-
-                TmCheckPower.Start();
+                BtnSpeak.Enabled = true;
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            TmCheckPower.Start();
         }
 
         private void FrmMain_Shown(object sender, EventArgs e)
@@ -104,7 +103,10 @@ namespace BatteryStatus.Forms
             ShowPowerStatus();
             Battery.PowerModeChanged();
             if (Battery.Charging && Battery.Alert == Battery.Alerts.LowBattery)
-                BtnChecked.Enabled = false;
+                AlertChecked();
+
+            if (!Battery.Charging && Battery.Alert == Battery.Alerts.HighBattery)
+                AlertChecked();
         }
 
         private void ShowPowerStatus()
@@ -120,9 +122,9 @@ namespace BatteryStatus.Forms
         {
             ShowPowerStatus();
             var idleTimeMin = PcInnactivity.GetIdleTimeMin();
-            _voiceNotify = idleTimeMin > PcInnactivity.MaxIdleTime;
+            _voiceNotify = idleTimeMin >= PcInnactivity.MaxIdleTime;
             TbIdleTime.Text = idleTimeMin.ToString("D");
-            if (!Battery.CheckPower()) return;
+            if (!Battery.CheckPowerLevel()) return;
             NewNotification(Battery.Msg);
             TmWaitForResp.Enabled = true;
         }
@@ -140,7 +142,9 @@ namespace BatteryStatus.Forms
             notifyIcon1.ShowBalloonTip(1000, "Notificación del estado de batería", msg, ToolTipIcon.Info);
         }
 
-        private void BtnChecked_Click(object sender, EventArgs e)
+        private void BtnChecked_Click(object sender, EventArgs e) => AlertChecked();
+
+        private void AlertChecked()
         {
             Battery.Checked();
             TmWaitForResp.Enabled = false;
@@ -192,26 +196,39 @@ namespace BatteryStatus.Forms
         #region MenuStrip
         private void VoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Recall for check if ther is an installed voice.
-            Voice.GetVoices();
-            var voiceSettings = new VoiceSettings(Voice);
-            voiceSettings.ShowDialog();
-            if (!voiceSettings.Changes) return;
-            Voice.ChangeCurrentVoice(voiceSettings.CurrenVoice);
-            Voice.ChangeNotVolume(voiceSettings.NotVolume);
+            try
+            {
+                //Recall for check if ther is an installed voice.
+                Voice.GetVoices();
+                var voiceSettings = new FormVoiceSettings(Voice);
+                voiceSettings.ShowDialog();
+                if (!voiceSettings.Changes) return;
+                Voice.ChangeCurrentVoice(voiceSettings.CurrenVoice);
+                Voice.ChangeNotVolume(voiceSettings.NotVolume);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void NotificationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var notSetTime = new NotSetTime(_timeBattChk, _auxTimeBattChk);
-            notSetTime.ShowDialog();
-            if (!notSetTime.Changes) return;
+            var frmNotSetTime = new FrmNotSetTime(_timeBattChk, _auxTimeBattChk, PcInnactivity.MaxIdleTime, Battery.LowBattLevel, Battery.HighBattLevel);
+            frmNotSetTime.ShowDialog();
+            if (!frmNotSetTime.Changes) return;
+            //Stop timers.
             TmCheckPower.Stop();
             TmWaitForResp.Stop();
-            _timeBattChk = notSetTime.TimeBattChk;
-            _auxTimeBattChk = notSetTime.AuxTimeBattChk;
+            //Get frmNotSetTime values.
+            _timeBattChk = frmNotSetTime.TimeBattChk;
+            _auxTimeBattChk = frmNotSetTime.AuxTimeBattChk;
+            Battery.ChangeLowBattLevel(frmNotSetTime.LowBattery);
+            Battery.ChangeHighBattLevel(frmNotSetTime.HighBattery);
+            PcInnactivity.ChangeMaxIdleTime(frmNotSetTime.IdleTime);
             TmCheckPower.Interval = (int)_timeBattChk * 1000;
             TmWaitForResp.Interval = (int)_auxTimeBattChk * 60000;
+            //Restart timers.
             TmCheckPower.Start();
             TmWaitForResp.Start();
         }
