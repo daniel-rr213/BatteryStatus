@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="BatteryStatus.exe" version="1.0.0.4" publicKeyToken="2a87b2f40505b658" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="iconfinder_battery_charging.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="BatteryStatus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="BatteryStatus.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          Opciones del manifiesto de UAC
+          Si desea cambiar el nivel de Control de cuentas de usuario de Windows, reemplace el 
+          nodo requestedExecutionLevel por uno de los siguientes.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         Si desea usar Virtualización de archivos y Registro para compatibilidad con 
+         versiones anteriores, elimine el nodo requestedExecutionLevel.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AudioSwitcher.AudioApi.dll" size="41472">
+      <assemblyIdentity name="AudioSwitcher.AudioApi" version="3.0.0.209" publicKeyToken="FDA5729E2DB3A64F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Jv82T8pJbuEJPeWWZFyGcxwVbYHQJrXQIN5GsN8FNRM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AudioSwitcher.AudioApi.CoreAudio.dll" size="77824">
+      <assemblyIdentity name="AudioSwitcher.AudioApi.CoreAudio" version="3.0.0.209" publicKeyToken="FDA5729E2DB3A64F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>9Jb3T0jz27SZR07woGiUB5CHhxNCs+O8JUxZA+Suv5E=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BatteryStatus.exe" size="387000">
+      <assemblyIdentity name="BatteryStatus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>YMr9l5oNWa/IvVsQlQJd+9WwzBfe64d8b4AzMj7GKOA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="BatteryStatus.exe.config" size="1471">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>4CKSBmTs8EbtPEhWCg1KTDFeJDTY8ICJRnkA6MFnSUY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="iconfinder_battery_charging.ico" size="67646">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>sNmyhL7xqKwRILn7JCct58PBhCR4XyH5xBy3kbG/fr0=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=LENOVO-ER\EMMA" issuerKeyHash="7d1a5115778dc985c2d105ec7e119ac0008240db" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>Edmne0ujZyVn6sXjz1IaIAjSKM83/zj09IojCUjoJB8=</DigestValue></Reference></SignedInfo><SignatureValue>tIS+Od5oJ2guSN/FkxAZtEY+z73IqtfxisqZr7VXDKAEPa0nT4rAgwnMMuvNkqarMyaoM+iwJsTkLTomO29oOLrhNDxwXsH/obyAiYy3B6M/5Ulp/VyQjP4HFN9AXvs+vO+sMCo0TI8j5wof6C6Hu/St2XogQFebvUraQ0P1DGg=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>taNC7iYXBiX3Qtrd5HO/pDzm5W2v9BZre03vJr8Is5xHrzlYSR65toE8VBZTPbrJ0/zLbvNhow3KFysIRzeKBX8gLi77fRANCWPgaDsIJot/bQw89tl9l5gR5aKX9LMS8PF8RUm+2FszRsEpkcQz3zOCNxzxd6ECzZi4WBPMg/E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1f24e84809238af4f438ff37cf28d208201a52cfe3c5ea672567a34b7ba7d911" Description="" Url=""><as:assemblyIdentity name="BatteryStatus.exe" version="1.0.0.4" publicKeyToken="2a87b2f40505b658" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=LENOVO-ER\EMMA</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>BPtExR3wcAPf9JHNeEjNanUpfFjqt1JcYTwxXHENOIM=</DigestValue></Reference></SignedInfo><SignatureValue>cTqioOqaRHYQ8WhljBXamOAHiVmnzBxaNRF/PZ16+v8ngIP/1V848K+rOPaVZSOSWX1dyqBBQNTU5qsSSQ6S1PmrrIrx5jqAOCVDnws1v5APJngyVm0+6SSy7MWvVWLj1npLAKae2G/OU4XjbUoWdkRJtVNR5Gpm5G2V5uv7sWc=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>taNC7iYXBiX3Qtrd5HO/pDzm5W2v9BZre03vJr8Is5xHrzlYSR65toE8VBZTPbrJ0/zLbvNhow3KFysIRzeKBX8gLi77fRANCWPgaDsIJot/bQw89tl9l5gR5aKX9LMS8PF8RUm+2FszRsEpkcQz3zOCNxzxd6ECzZi4WBPMg/E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB0TCCATqgAwIBAgIQL4ZsqSscZrxAWqTRIq6C7jANBgkqhkiG9w0BAQsFADAnMSUwIwYDVQQDHhwATABFAE4ATwBWAE8ALQBFAFIAXABFAE0ATQBBMB4XDTE5MDYyNjIxMTgwM1oXDTIwMDYyNjAzMTgwM1owJzElMCMGA1UEAx4cAEwARQBOAE8AVgBPAC0ARQBSAFwARQBNAE0AQTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAtaNC7iYXBiX3Qtrd5HO/pDzm5W2v9BZre03vJr8Is5xHrzlYSR65toE8VBZTPbrJ0/zLbvNhow3KFysIRzeKBX8gLi77fRANCWPgaDsIJot/bQw89tl9l5gR5aKX9LMS8PF8RUm+2FszRsEpkcQz3zOCNxzxd6ECzZi4WBPMg/ECAwEAATANBgkqhkiG9w0BAQsFAAOBgQCVxkZxVILjz/wKFJlNcCcgvAS/E7TYaxWRRHWg6Xv245pEZanonQY2zP1gYPXVN2MB6ln+FQ66fFLPsVKhfhgkOZDpBwKAwF8XNg/lBZs2ijXwVLM09hAVvPwHF7HfmC7+nmMicb8hEVA7tqXjS1QhE0S2Llp2XjrIA0TA7/mwQg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
