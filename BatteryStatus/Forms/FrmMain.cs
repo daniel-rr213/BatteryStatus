@@ -161,7 +161,7 @@ namespace BatteryStatus.Forms
         private void ChangeCharge()
         {
             var percent = Battery.BatteryLifePercent;
-            LbCharge.Text = percent.ToString("P0");
+            LbNivelCharge.Text = percent.ToString("P0");
             percent *= 100;
             PbCharge.Value = (int)percent;
             if (percent < Battery.LowBattLevel)
@@ -230,7 +230,10 @@ namespace BatteryStatus.Forms
             try
             {
                 //NewNotification($@"Batería al {txtCharge.Text}");
-                Voice.AddMessage($@"Batería al {LbCharge.Text}");
+                Voice.AddMessage($@"Batería al {LbNivelCharge.Text}.");
+
+                if (TbLifeRemaining.Text != @"--")
+                    SpeakLifeRemaining();
                 if (!_voiceNotify || !_auxVoiceNotify) return;
                 BtnPause.Enabled = true;
                 BtnSpeak.Enabled = false;
@@ -239,6 +242,22 @@ namespace BatteryStatus.Forms
             {
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void SpeakLifeRemaining()
+        {
+            var msg = $@"Tiempo restante:";
+            var remaining = TbLifeRemaining.Text.Split(':');
+            var hour = Convert.ToInt16(remaining[0]);
+            var min = Convert.ToInt16(remaining[1]);
+            var hourtxt = "";
+            var mintxt = "";
+            if (hour > 0)
+                hourtxt = hour == 1 ? $"{hour} hora" : $"{hour} horas";
+            if (min > 0)
+                mintxt = min == 1 ? $"{min} minuto" : $"{min} minutos";
+            msg += $@"{hourtxt} {mintxt}";
+            Voice.AddMessage(msg);
         }
 
         private void BtnPause_Click(object sender, EventArgs e)
