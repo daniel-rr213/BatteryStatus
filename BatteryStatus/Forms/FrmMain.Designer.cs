@@ -320,6 +320,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
             this.aboutToolStripMenuItem.Text = "&Acerca de";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // GbBatteryStatus
             // 

@@ -280,6 +280,11 @@ namespace BatteryStatus.Forms
         #endregion
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     public static class ModifyProgressBarColor
     {
