@@ -189,6 +189,7 @@ namespace BatteryStatus.Forms
             TbIdleTime.Text = idleTimeMin.ToString("D");
             if (!Battery.CheckPowerLevel()) return;
             NewNotification(Battery.Msg);
+            if (Battery.Alert == Battery.Alerts.LowBattery) SpeakLifeRemaining();
             TmWaitForResp.Enabled = true;
         }
 
@@ -221,7 +222,6 @@ namespace BatteryStatus.Forms
 
         private void BtnSpeak_Click(object sender, EventArgs e)
         {
-            _auxVoiceNotify = _voiceNotify || !_auxVoiceNotify;
             SpeakInfo();
         }
 
