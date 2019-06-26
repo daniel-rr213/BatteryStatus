@@ -55,7 +55,16 @@ namespace BatteryStatus.Forms
             TmCheckPower.Start();
         }
 
-        private void BtnChecked_EnabledChanged(object sender, EventArgs e) => BtnChecked.BackColor = ((Button)sender).Enabled ? Color.FromArgb(0, 192, 0) : SystemColors.Control;
+        private void BtnChecked_EnabledChanged(object sender, EventArgs e)
+        {
+            if (((Button)sender).Enabled)
+                BtnChecked.BackColor = Color.FromArgb(0, 192, 0);
+            else
+            {
+                BtnChecked.BackColor = SystemColors.Control;
+                BtnChecked.UseVisualStyleBackColor = true;
+            }
+        }
 
         private void FrmMain_Shown(object sender, EventArgs e)
         {
@@ -277,11 +286,11 @@ namespace BatteryStatus.Forms
 
         private void InformeToolStripMenuItem_Click(object sender, EventArgs e) => SpeakInfo();
 
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e) => new FormAbout().ShowDialog();
+
         #endregion
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
-
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e) => new FormAbout().ShowDialog();
     }
     public static class ModifyProgressBarColor
     {
