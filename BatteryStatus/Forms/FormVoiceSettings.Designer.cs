@@ -107,7 +107,7 @@
             this.NudNotVol.Location = new System.Drawing.Point(6, 30);
             this.NudNotVol.Name = "NudNotVol";
             this.NudNotVol.Size = new System.Drawing.Size(298, 22);
-            this.NudNotVol.TabIndex = 6;
+            this.NudNotVol.TabIndex = 0;
             this.NudNotVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TbNotVol
@@ -117,7 +117,7 @@
             this.TbNotVol.Minimum = 1;
             this.TbNotVol.Name = "TbNotVol";
             this.TbNotVol.Size = new System.Drawing.Size(305, 56);
-            this.TbNotVol.TabIndex = 5;
+            this.TbNotVol.TabIndex = 1;
             this.TbNotVol.Value = 100;
             // 
             // GbTestVolume
@@ -127,7 +127,7 @@
             this.GbTestVolume.Location = new System.Drawing.Point(6, 246);
             this.GbTestVolume.Name = "GbTestVolume";
             this.GbTestVolume.Size = new System.Drawing.Size(315, 121);
-            this.GbTestVolume.TabIndex = 6;
+            this.GbTestVolume.TabIndex = 5;
             this.GbTestVolume.TabStop = false;
             this.GbTestVolume.Text = "&Test Volume";
             // 
@@ -136,7 +136,7 @@
             this.NudTestVol.Location = new System.Drawing.Point(6, 30);
             this.NudTestVol.Name = "NudTestVol";
             this.NudTestVol.Size = new System.Drawing.Size(298, 22);
-            this.NudTestVol.TabIndex = 6;
+            this.NudTestVol.TabIndex = 0;
             this.NudTestVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NudTestVol.Value = new decimal(new int[] {
             100,
@@ -151,7 +151,7 @@
             this.TbTestVol.Minimum = 1;
             this.TbTestVol.Name = "TbTestVol";
             this.TbTestVol.Size = new System.Drawing.Size(305, 56);
-            this.TbTestVol.TabIndex = 5;
+            this.TbTestVol.TabIndex = 1;
             this.TbTestVol.Value = 100;
             // 
             // BtnRead
@@ -201,14 +201,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Choose the &voice";
             // 
-            // VoiceSettings
+            // FormVoiceSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(349, 562);
             this.Controls.Add(this.GbVoiceSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "VoiceSettings";
+            this.Name = "FormVoiceSettings";
             this.Text = "VoiceSettings";
             this.Load += new System.EventHandler(this.VoiceSettings_Load);
             this.GbVoiceSettings.ResumeLayout(false);

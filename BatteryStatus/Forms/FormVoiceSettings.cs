@@ -90,6 +90,7 @@ namespace BatteryStatus.Forms
         {
             _voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
             _voice.ChangeSyntVolume(TbTestVol.Value);
+            _voice.ChangeNotVolume((uint) NudNotVol.Value);
             Changes = true;
             Close();
         }

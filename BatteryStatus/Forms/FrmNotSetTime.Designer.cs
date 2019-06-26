@@ -64,7 +64,7 @@
             this.groupBox1.Controls.Add(this.BtnSave);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(344, 329);
+            this.groupBox1.Size = new System.Drawing.Size(344, 340);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuración de las notificaciones";
@@ -151,7 +151,7 @@
             this.GbTimeSettings.Controls.Add(this.NudTimeChk);
             this.GbTimeSettings.Location = new System.Drawing.Point(7, 120);
             this.GbTimeSettings.Name = "GbTimeSettings";
-            this.GbTimeSettings.Size = new System.Drawing.Size(320, 154);
+            this.GbTimeSettings.Size = new System.Drawing.Size(320, 165);
             this.GbTimeSettings.TabIndex = 1;
             this.GbTimeSettings.TabStop = false;
             this.GbTimeSettings.Text = "Configuración temporizadores";
@@ -162,7 +162,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(213, 38);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Tiempo para &comprobar el nivel de batería (sec)";
+            this.label1.Text = "&Tiempo para comprobar el nivel de batería (sec)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NudIdleTime
@@ -248,7 +248,7 @@
             // BtnCancel
             // 
             this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnCancel.Location = new System.Drawing.Point(108, 280);
+            this.BtnCancel.Location = new System.Drawing.Point(108, 291);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(99, 34);
             this.BtnCancel.TabIndex = 3;
@@ -259,7 +259,7 @@
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnSave.Location = new System.Drawing.Point(7, 280);
+            this.BtnSave.Location = new System.Drawing.Point(7, 291);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(99, 34);
             this.BtnSave.TabIndex = 2;
@@ -271,7 +271,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 348);
+            this.ClientSize = new System.Drawing.Size(365, 359);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmNotSetTime";
