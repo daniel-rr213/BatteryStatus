@@ -34,7 +34,7 @@ namespace BatteryStatus.Forms
         }
 
         #region FormEvents
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
             AutoRunLoad();
             Battery = new Battery();
@@ -42,7 +42,6 @@ namespace BatteryStatus.Forms
             SystemEvents.PowerModeChanged += PowerModeChanged;
             ShowPowerStatus();
             BtnChecked.EnabledChanged += BtnChecked_EnabledChanged;
-            //BtnSpeak.EnabledChanged += BtnChecked_EnabledChanged;
             try
             {
                 Voice = new Voice(VoiceCompleted);
@@ -52,7 +51,26 @@ namespace BatteryStatus.Forms
             {
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            LoadPropeties();
             TmCheckPower.Start();
+        }
+
+        private void LoadPropeties()
+        {
+            Battery.ChangeHighBattLevel(Properties.Settings.Default.BatteryHigh);
+            Battery.ChangeLowBattLevel(Properties.Settings.Default.BatteryLow);
+            PcInnactivity.ChangeMaxIdleTime(Properties.Settings.Default.PcIdleTime);
+            _timeBattChk = Properties.Settings.Default.TimeBattChk;
+            _auxTimeBattChk = Properties.Settings.Default.TimeAuxBattChk;
+            Voice?.ChangeNotVolume(Properties.Settings.Default.VolNot);
+            if (Properties.Settings.Default.VoiceName != string.Empty)
+                Voice?.ChangeCurrentVoice(Properties.Settings.Default.VoiceName);
+            else
+            {
+                Properties.Settings.Default.VoiceName = Voice?.CurrenVoice;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void BtnChecked_EnabledChanged(object sender, EventArgs e)
@@ -247,6 +265,9 @@ namespace BatteryStatus.Forms
                 var voiceSettings = new FormVoiceSettings(Voice);
                 voiceSettings.ShowDialog();
                 if (!voiceSettings.Changes) return;
+                Properties.Settings.Default.VoiceName = voiceSettings.CurrenVoice;
+                Properties.Settings.Default.VolNot = voiceSettings.NotVolume;
+                Properties.Settings.Default.Save();
                 Voice.ChangeCurrentVoice(voiceSettings.CurrenVoice);
                 Voice.ChangeNotVolume(voiceSettings.NotVolume);
             }
@@ -270,6 +291,14 @@ namespace BatteryStatus.Forms
             Battery.ChangeLowBattLevel(frmNotSetTime.LowBattery);
             Battery.ChangeHighBattLevel(frmNotSetTime.HighBattery);
             PcInnactivity.ChangeMaxIdleTime(frmNotSetTime.IdleTime);
+            //Save in properties
+            Properties.Settings.Default.BatteryHigh = Battery.HighBattLevel;
+            Properties.Settings.Default.BatteryLow = Battery.LowBattLevel;
+            Properties.Settings.Default.PcIdleTime = PcInnactivity.MaxIdleTime;
+            Properties.Settings.Default.TimeBattChk = _timeBattChk;
+            Properties.Settings.Default.TimeAuxBattChk = _auxTimeBattChk;
+            Properties.Settings.Default.Save();
+            //Changes timer intervals.
             TmCheckPower.Interval = (int)_timeBattChk * 1000;
             TmWaitForResp.Interval = (int)_auxTimeBattChk * 60000;
             //Restart timers.

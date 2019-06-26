@@ -57,7 +57,7 @@ namespace BatteryStatus.Utilities
             {
                 var info = voice.VoiceInfo;
                 var infoDescription = info.Description;
-                var auxvoice = string.Empty;
+                string auxvoice;
                 if (infoDescription.StartsWith("Microsoft"))
                     auxvoice = infoDescription;
                 else

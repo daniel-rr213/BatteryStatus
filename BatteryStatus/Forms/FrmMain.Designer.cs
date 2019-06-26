@@ -393,7 +393,7 @@
             this.Name = "FrmMain";
             this.Text = "Monitor de nivel de batería";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FrmMain_Shown);
             this.Move += new System.EventHandler(this.FrmMain_Move);
             this.contextMenuStrip1.ResumeLayout(false);
