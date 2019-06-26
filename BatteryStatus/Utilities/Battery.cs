@@ -98,23 +98,21 @@ namespace BatteryStatus.Utilities
         public bool Checked()
         {
             // ReSharper disable once RedundantAssignment
-            var resp = true;
+            var resp = false;
             switch (Alert)
             {
                 case Alerts.HighBattery when IsCharging:
                     Msg = @"Recuerde que la vida de la batería podría verse afectada";
-                    resp = false;
                     break;
                 case Alerts.LowBattery when !IsCharging:
                     Msg = @"No se ha detectado la conexión, puede perder información no salvada";
-                    resp = false;
                     break;
                 case Alerts.Any:
                     Msg = @"No había ninguna notificación";
-                    resp = false;
                     break;
                 default:
                     //throw new ArgumentOutOfRangeException();
+                    resp = true;
                     break;
             }
 
