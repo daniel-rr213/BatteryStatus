@@ -1,0 +1,18 @@
+[{
+        "MenuStrip": [{
+                "settingsToolStripMenuItem": [
+                    { "name": "Configuración" },
+                    { "voiceToolStripMenuItem": "Voz" },
+                    { "notificationsToolStripMenuItem": "Notificación" }
+                ]
+            },
+            { "aboutToolStripMenuItem": "Acerca de" }
+        ]
+    },
+    {
+        "GbBatteryStatus": [
+            { "name": "Estado de la batería" },
+            { "LbChargeStatus": "Estado de la carga" }
+        ]
+    }
+]

@@ -30,15 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtChargeStatus = new System.Windows.Forms.TextBox();
-            this.txtFullLifetime = new System.Windows.Forms.TextBox();
+            this.LbChargeStatus = new System.Windows.Forms.Label();
+            this.TbChargeStatus = new System.Windows.Forms.TextBox();
+            this.TbFullLifetime = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtCharge = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtLifeRemaining = new System.Windows.Forms.TextBox();
+            this.TbLifeRemaining = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtLineStatus = new System.Windows.Forms.TextBox();
+            this.TbLineStatus = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TmCheckPower = new System.Windows.Forms.Timer(this.components);
             this.BtnSpeak = new System.Windows.Forms.Button();
@@ -49,107 +48,113 @@
             this.TbIdleTime = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.informeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.ChBAutoRun = new System.Windows.Forms.CheckBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GbBatteryStatus = new System.Windows.Forms.GroupBox();
+            this.PbCharge = new System.Windows.Forms.ProgressBar();
+            this.LbCharge = new System.Windows.Forms.Label();
             this.GbVoiceBtns = new System.Windows.Forms.GroupBox();
             this.contextMenuStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.MenuStrip.SuspendLayout();
             this.GbBatteryStatus.SuspendLayout();
             this.GbVoiceBtns.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // LbChargeStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Charge Status";
+            this.LbChargeStatus.AutoSize = true;
+            this.LbChargeStatus.Location = new System.Drawing.Point(6, 28);
+            this.LbChargeStatus.Name = "LbChargeStatus";
+            this.LbChargeStatus.Size = new System.Drawing.Size(127, 17);
+            this.LbChargeStatus.TabIndex = 0;
+            this.LbChargeStatus.Text = "Estado de la carga";
             // 
-            // txtChargeStatus
+            // TbChargeStatus
             // 
-            this.txtChargeStatus.Location = new System.Drawing.Point(150, 15);
-            this.txtChargeStatus.Name = "txtChargeStatus";
-            this.txtChargeStatus.ReadOnly = true;
-            this.txtChargeStatus.Size = new System.Drawing.Size(217, 22);
-            this.txtChargeStatus.TabIndex = 1;
+            this.TbChargeStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbChargeStatus.Location = new System.Drawing.Point(177, 25);
+            this.TbChargeStatus.Name = "TbChargeStatus";
+            this.TbChargeStatus.ReadOnly = true;
+            this.TbChargeStatus.Size = new System.Drawing.Size(156, 22);
+            this.TbChargeStatus.TabIndex = 1;
+            this.TbChargeStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtFullLifetime
+            // TbFullLifetime
             // 
-            this.txtFullLifetime.Location = new System.Drawing.Point(150, 54);
-            this.txtFullLifetime.Name = "txtFullLifetime";
-            this.txtFullLifetime.ReadOnly = true;
-            this.txtFullLifetime.Size = new System.Drawing.Size(217, 22);
-            this.txtFullLifetime.TabIndex = 3;
+            this.TbFullLifetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbFullLifetime.Location = new System.Drawing.Point(177, 54);
+            this.TbFullLifetime.Name = "TbFullLifetime";
+            this.TbFullLifetime.ReadOnly = true;
+            this.TbFullLifetime.Size = new System.Drawing.Size(156, 22);
+            this.TbFullLifetime.TabIndex = 3;
+            this.TbFullLifetime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 57);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 17);
+            this.label2.Size = new System.Drawing.Size(148, 44);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Full Life (sec)";
-            // 
-            // txtCharge
-            // 
-            this.txtCharge.Location = new System.Drawing.Point(150, 93);
-            this.txtCharge.Name = "txtCharge";
-            this.txtCharge.ReadOnly = true;
-            this.txtCharge.Size = new System.Drawing.Size(217, 22);
-            this.txtCharge.TabIndex = 5;
+            this.label2.Text = "Tiempo para carga completa (sec)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 96);
+            this.label3.Location = new System.Drawing.Point(6, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 17);
+            this.label3.Size = new System.Drawing.Size(50, 17);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Charge";
+            this.label3.Text = "Carga:";
             // 
-            // txtLifeRemaining
+            // TbLifeRemaining
             // 
-            this.txtLifeRemaining.Location = new System.Drawing.Point(150, 132);
-            this.txtLifeRemaining.Name = "txtLifeRemaining";
-            this.txtLifeRemaining.ReadOnly = true;
-            this.txtLifeRemaining.Size = new System.Drawing.Size(217, 22);
-            this.txtLifeRemaining.TabIndex = 7;
+            this.TbLifeRemaining.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbLifeRemaining.Location = new System.Drawing.Point(177, 143);
+            this.TbLifeRemaining.Name = "TbLifeRemaining";
+            this.TbLifeRemaining.ReadOnly = true;
+            this.TbLifeRemaining.Size = new System.Drawing.Size(156, 22);
+            this.TbLifeRemaining.TabIndex = 7;
+            this.TbLifeRemaining.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 135);
+            this.label4.Location = new System.Drawing.Point(6, 146);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 17);
+            this.label4.Size = new System.Drawing.Size(167, 17);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Life Remaining (sec)";
+            this.label4.Text = "Tiempo restante (hh:mm)";
             // 
-            // txtLineStatus
+            // TbLineStatus
             // 
-            this.txtLineStatus.Location = new System.Drawing.Point(150, 171);
-            this.txtLineStatus.Name = "txtLineStatus";
-            this.txtLineStatus.ReadOnly = true;
-            this.txtLineStatus.Size = new System.Drawing.Size(217, 22);
-            this.txtLineStatus.TabIndex = 9;
+            this.TbLineStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbLineStatus.Location = new System.Drawing.Point(177, 182);
+            this.TbLineStatus.Name = "TbLineStatus";
+            this.TbLineStatus.ReadOnly = true;
+            this.TbLineStatus.Size = new System.Drawing.Size(156, 22);
+            this.TbLineStatus.TabIndex = 9;
+            this.TbLineStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 174);
+            this.label5.Location = new System.Drawing.Point(6, 185);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 17);
+            this.label5.Size = new System.Drawing.Size(147, 17);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Line Status";
+            this.label5.Text = "Estado de la conexión";
             // 
             // TmCheckPower
             // 
@@ -191,8 +196,9 @@
             // 
             // BtnChecked
             // 
+            this.BtnChecked.BackColor = System.Drawing.SystemColors.Control;
             this.BtnChecked.Enabled = false;
-            this.BtnChecked.Location = new System.Drawing.Point(323, 20);
+            this.BtnChecked.Location = new System.Drawing.Point(12, 254);
             this.BtnChecked.Name = "BtnChecked";
             this.BtnChecked.Size = new System.Drawing.Size(86, 29);
             this.BtnChecked.TabIndex = 13;
@@ -207,7 +213,8 @@
             // 
             // TbIdleTime
             // 
-            this.TbIdleTime.Location = new System.Drawing.Point(162, 346);
+            this.TbIdleTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TbIdleTime.Location = new System.Drawing.Point(277, 365);
             this.TbIdleTime.Name = "TbIdleTime";
             this.TbIdleTime.ReadOnly = true;
             this.TbIdleTime.Size = new System.Drawing.Size(56, 22);
@@ -215,33 +222,42 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 349);
+            this.label6.Location = new System.Drawing.Point(18, 368);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 17);
+            this.label6.Size = new System.Drawing.Size(252, 17);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Idle Time in Minuts";
+            this.label6.Text = "Tiempo de inactividad del equipo (Min)";
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informeToolStripMenuItem,
             this.ShowToolStripMenuItem,
             this.CloseToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(130, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(131, 76);
+            // 
+            // informeToolStripMenuItem
+            // 
+            this.informeToolStripMenuItem.Name = "informeToolStripMenuItem";
+            this.informeToolStripMenuItem.Size = new System.Drawing.Size(130, 24);
+            this.informeToolStripMenuItem.Text = "Informe";
+            this.informeToolStripMenuItem.Click += new System.EventHandler(this.InformeToolStripMenuItem_Click);
             // 
             // ShowToolStripMenuItem
             // 
             this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(130, 24);
             this.ShowToolStripMenuItem.Text = "Mostart";
             this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
             // CloseToolStripMenuItem
             // 
             this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
-            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(130, 24);
             this.CloseToolStripMenuItem.Text = "Cerrar";
             this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
@@ -255,25 +271,26 @@
             // 
             // ChBAutoRun
             // 
+            this.ChBAutoRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ChBAutoRun.AutoSize = true;
-            this.ChBAutoRun.Location = new System.Drawing.Point(12, 380);
+            this.ChBAutoRun.Location = new System.Drawing.Point(12, 392);
             this.ChBAutoRun.Name = "ChBAutoRun";
             this.ChBAutoRun.Size = new System.Drawing.Size(179, 21);
             this.ChBAutoRun.TabIndex = 4;
             this.ChBAutoRun.Text = "Iniciar &automáticamente";
             this.ChBAutoRun.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // MenuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(475, 28);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(367, 28);
+            this.MenuStrip.TabIndex = 5;
+            this.MenuStrip.Text = "menuStrip1";
             // 
             // settingsToolStripMenuItem
             // 
@@ -281,85 +298,106 @@
             this.voiceToolStripMenuItem,
             this.notificationsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
-            this.settingsToolStripMenuItem.Text = "&Settings";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.settingsToolStripMenuItem.Text = "&Configuración";
             // 
             // voiceToolStripMenuItem
             // 
             this.voiceToolStripMenuItem.Name = "voiceToolStripMenuItem";
-            this.voiceToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.voiceToolStripMenuItem.Text = "&Voice";
+            this.voiceToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.voiceToolStripMenuItem.Text = "&Voz";
             this.voiceToolStripMenuItem.Click += new System.EventHandler(this.VoiceToolStripMenuItem_Click);
             // 
             // notificationsToolStripMenuItem
             // 
             this.notificationsToolStripMenuItem.Name = "notificationsToolStripMenuItem";
-            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.notificationsToolStripMenuItem.Text = "&Notifications";
+            this.notificationsToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.notificationsToolStripMenuItem.Text = "&Notificationes";
             this.notificationsToolStripMenuItem.Click += new System.EventHandler(this.NotificationsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.aboutToolStripMenuItem.Text = "&Acerca de";
             // 
             // GbBatteryStatus
             // 
-            this.GbBatteryStatus.Controls.Add(this.label1);
-            this.GbBatteryStatus.Controls.Add(this.txtChargeStatus);
+            this.GbBatteryStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GbBatteryStatus.Controls.Add(this.PbCharge);
+            this.GbBatteryStatus.Controls.Add(this.LbCharge);
+            this.GbBatteryStatus.Controls.Add(this.LbChargeStatus);
+            this.GbBatteryStatus.Controls.Add(this.TbChargeStatus);
             this.GbBatteryStatus.Controls.Add(this.label2);
-            this.GbBatteryStatus.Controls.Add(this.txtFullLifetime);
+            this.GbBatteryStatus.Controls.Add(this.TbFullLifetime);
             this.GbBatteryStatus.Controls.Add(this.label3);
-            this.GbBatteryStatus.Controls.Add(this.txtCharge);
             this.GbBatteryStatus.Controls.Add(this.label4);
-            this.GbBatteryStatus.Controls.Add(this.txtLifeRemaining);
+            this.GbBatteryStatus.Controls.Add(this.TbLifeRemaining);
             this.GbBatteryStatus.Controls.Add(this.label5);
-            this.GbBatteryStatus.Controls.Add(this.txtLineStatus);
+            this.GbBatteryStatus.Controls.Add(this.TbLineStatus);
             this.GbBatteryStatus.Location = new System.Drawing.Point(12, 31);
             this.GbBatteryStatus.Name = "GbBatteryStatus";
-            this.GbBatteryStatus.Size = new System.Drawing.Size(372, 208);
+            this.GbBatteryStatus.Size = new System.Drawing.Size(348, 217);
             this.GbBatteryStatus.TabIndex = 0;
             this.GbBatteryStatus.TabStop = false;
-            this.GbBatteryStatus.Text = "Battery Status";
+            this.GbBatteryStatus.Text = "Estado de la batería";
+            // 
+            // PbCharge
+            // 
+            this.PbCharge.Location = new System.Drawing.Point(177, 104);
+            this.PbCharge.Name = "PbCharge";
+            this.PbCharge.Size = new System.Drawing.Size(124, 22);
+            this.PbCharge.TabIndex = 14;
+            this.PbCharge.Value = 50;
+            // 
+            // LbCharge
+            // 
+            this.LbCharge.AutoSize = true;
+            this.LbCharge.BackColor = System.Drawing.Color.Transparent;
+            this.LbCharge.Location = new System.Drawing.Point(221, 84);
+            this.LbCharge.Name = "LbCharge";
+            this.LbCharge.Size = new System.Drawing.Size(36, 17);
+            this.LbCharge.TabIndex = 15;
+            this.LbCharge.Text = "50%";
             // 
             // GbVoiceBtns
             // 
             this.GbVoiceBtns.Controls.Add(this.BtnSpeak);
             this.GbVoiceBtns.Controls.Add(this.BtnPause);
             this.GbVoiceBtns.Controls.Add(this.BtnResume);
-            this.GbVoiceBtns.Controls.Add(this.BtnChecked);
-            this.GbVoiceBtns.Location = new System.Drawing.Point(12, 259);
+            this.GbVoiceBtns.Location = new System.Drawing.Point(12, 289);
             this.GbVoiceBtns.Name = "GbVoiceBtns";
-            this.GbVoiceBtns.Size = new System.Drawing.Size(420, 66);
+            this.GbVoiceBtns.Size = new System.Drawing.Size(310, 66);
             this.GbVoiceBtns.TabIndex = 1;
             this.GbVoiceBtns.TabStop = false;
-            this.GbVoiceBtns.Text = "Voice control";
+            this.GbVoiceBtns.Text = "Control de voz";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 413);
+            this.ClientSize = new System.Drawing.Size(367, 421);
             this.Controls.Add(this.GbVoiceBtns);
             this.Controls.Add(this.GbBatteryStatus);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.BtnChecked);
+            this.Controls.Add(this.MenuStrip);
             this.Controls.Add(this.ChBAutoRun);
             this.Controls.Add(this.TbIdleTime);
             this.Controls.Add(this.label6);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.MenuStrip;
             this.MaximizeBox = false;
             this.Name = "FrmMain";
-            this.Text = "Form1";
+            this.Text = "Monitor de nivel de batería";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.FrmMain_Shown);
             this.Move += new System.EventHandler(this.FrmMain_Move);
             this.contextMenuStrip1.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.MenuStrip.ResumeLayout(false);
+            this.MenuStrip.PerformLayout();
             this.GbBatteryStatus.ResumeLayout(false);
             this.GbBatteryStatus.PerformLayout();
             this.GbVoiceBtns.ResumeLayout(false);
@@ -370,15 +408,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtChargeStatus;
-        private System.Windows.Forms.TextBox txtFullLifetime;
+        private System.Windows.Forms.Label LbChargeStatus;
+        private System.Windows.Forms.TextBox TbChargeStatus;
+        private System.Windows.Forms.TextBox TbFullLifetime;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtCharge;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtLifeRemaining;
+        private System.Windows.Forms.TextBox TbLifeRemaining;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtLineStatus;
+        private System.Windows.Forms.TextBox TbLineStatus;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer TmCheckPower;
         private System.Windows.Forms.Button BtnSpeak;
@@ -393,13 +430,16 @@
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.CheckBox ChBAutoRun;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.GroupBox GbBatteryStatus;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem voiceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notificationsToolStripMenuItem;
         private System.Windows.Forms.GroupBox GbVoiceBtns;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informeToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar PbCharge;
+        private System.Windows.Forms.Label LbCharge;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace BatteryStatus.Utilities
 {
@@ -7,7 +8,7 @@ namespace BatteryStatus.Utilities
         /// <summary>
         /// Pc charging status.
         /// </summary>
-        public bool Charging { get; private set; }
+        public bool IsCharging { get; private set; }
         /// <summary>
         /// Alert checked.
         /// </summary>
@@ -19,11 +20,11 @@ namespace BatteryStatus.Utilities
         /// <summary>
         /// Min battery level.
         /// </summary>
-        public uint LowBattLevel {get; private set;} = 20;
+        public uint LowBattLevel { get; private set; } = 20;
         /// <summary>
         /// Max battery level.
         /// </summary>
-        public uint HighBattLevel {get; private set;} = 80;
+        public uint HighBattLevel { get; private set; } = 80;
         /// <summary>
         /// Alert Message.
         /// </summary>
@@ -46,10 +47,11 @@ namespace BatteryStatus.Utilities
 
         #region PowerStatusProperties
         public string ChargeStatus => Status.BatteryChargeStatus == 0 ? "Normal" : Status.BatteryChargeStatus.ToString();
-        public string BatteryFullLifetime => Status.BatteryFullLifetime == -1 ? "Unknown" : Status.BatteryFullLifetime.ToString();
-        public string BatteryLifePercent => Status.BatteryLifePercent.ToString("P0");
-        public string BatteryLifeRemaining => Status.BatteryLifeRemaining == -1 ? "Unknown" : Status.BatteryLifeRemaining.ToString();
-        public string PowerLineStatus => Status.PowerLineStatus.ToString();
+        public string BatteryFullLifetime => Status.BatteryFullLifetime == -1 ? "--" : Status.BatteryFullLifetime.ToString();
+        public float BatteryLifePercent => Status.BatteryLifePercent;
+        public string BatteryLifeRemaining => Status.BatteryLifeRemaining == -1 ? "Unknown" : TimeSpan.FromSeconds(Status.BatteryLifeRemaining).ToString(@"hh\:mm");
+
+        public string PowerLineStatus => Status.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Offline ? "Desconectado" : "Cargando";
 
         #endregion
 
@@ -62,17 +64,17 @@ namespace BatteryStatus.Utilities
         /// <summary>
         /// Check if the pc is charging.
         /// </summary>
-        public void PowerModeChanged() => Charging = Status.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online;
+        public void PowerModeChanged() => IsCharging = Status.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online;
 
         public bool CheckPowerLevel()
         {
             if (_auxAlert) return false;
-            if (!Charging && Status.BatteryLifePercent <= (double)LowBattLevel / 100)
+            if (!IsCharging && Status.BatteryLifePercent <= (double)LowBattLevel / 100)
             {
                 Msg = $@"Batería por debajo del {LowBattLevel} %. Conecte la fuente de poder";
                 Alert = Alerts.LowBattery;
             }
-            else if (Charging && Status.BatteryLifePercent >= (double)HighBattLevel / 100)
+            else if (IsCharging && Status.BatteryLifePercent >= (double)HighBattLevel / 100)
             {
                 Msg = $@"Batería por encima del {HighBattLevel} %. Desconecte la fuente de poder";
                 Alert = Alerts.HighBattery;
@@ -93,6 +95,32 @@ namespace BatteryStatus.Utilities
             if (!ChkAlert)
                 _auxAlert = false;
         }
-        public void Checked() => ChkAlert = true;
+        public bool Checked()
+        {
+            // ReSharper disable once RedundantAssignment
+            var resp = true;
+            switch (Alert)
+            {
+                case Alerts.HighBattery when IsCharging:
+                    Msg = @"Recuerde que la vida de la batería podría verse afectada";
+                    resp = false;
+                    break;
+                case Alerts.LowBattery when !IsCharging:
+                    Msg = @"No se ha detectado la conexión, puede perder información no salvada";
+                    resp = false;
+                    break;
+                case Alerts.Any:
+                    Msg = @"No había ninguna notificación";
+                    resp = false;
+                    break;
+                default:
+                    //throw new ArgumentOutOfRangeException();
+                    break;
+            }
+
+            ChkAlert = true;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            return resp;
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using BatteryStatus.Utilities;
 using Microsoft.Win32;
+using static BatteryStatus.Forms.ModifyProgressBarColor;
 
 namespace BatteryStatus.Forms
 {
@@ -21,6 +24,9 @@ namespace BatteryStatus.Forms
         private uint _auxTimeBattChk = 1;
         private readonly bool _show;
 
+        public Colors PbColor;
+        private bool _auxVoiceNotify;
+
         public FrmMain(bool show)
         {
             InitializeComponent();
@@ -35,6 +41,8 @@ namespace BatteryStatus.Forms
             PcInnactivity = new PcInnactivity();
             SystemEvents.PowerModeChanged += PowerModeChanged;
             ShowPowerStatus();
+            BtnChecked.EnabledChanged += BtnChecked_EnabledChanged;
+            //BtnSpeak.EnabledChanged += BtnChecked_EnabledChanged;
             try
             {
                 Voice = new Voice(VoiceCompleted);
@@ -46,6 +54,8 @@ namespace BatteryStatus.Forms
             }
             TmCheckPower.Start();
         }
+
+        private void BtnChecked_EnabledChanged(object sender, EventArgs e) => BtnChecked.BackColor = ((Button)sender).Enabled ? Color.FromArgb(0, 192, 0) : SystemColors.Control;
 
         private void FrmMain_Shown(object sender, EventArgs e)
         {
@@ -102,20 +112,38 @@ namespace BatteryStatus.Forms
         {
             ShowPowerStatus();
             Battery.PowerModeChanged();
-            if (Battery.Charging && Battery.Alert == Battery.Alerts.LowBattery)
+            if (Battery.IsCharging && Battery.Alert == Battery.Alerts.LowBattery)
                 AlertChecked();
 
-            if (!Battery.Charging && Battery.Alert == Battery.Alerts.HighBattery)
+            if (!Battery.IsCharging && Battery.Alert == Battery.Alerts.HighBattery)
                 AlertChecked();
         }
 
         private void ShowPowerStatus()
         {
-            txtChargeStatus.Text = Battery.ChargeStatus;
-            txtFullLifetime.Text = Battery.BatteryFullLifetime;
-            txtCharge.Text = Battery.BatteryLifePercent;
-            txtLifeRemaining.Text = Battery.BatteryLifeRemaining;
-            txtLineStatus.Text = Battery.PowerLineStatus;
+            TbChargeStatus.Text = Battery.ChargeStatus;
+            TbFullLifetime.Text = Battery.BatteryFullLifetime;
+            ChangeCharge();
+            TbLifeRemaining.Text = Battery.BatteryLifeRemaining;
+            TbLineStatus.Text = Battery.PowerLineStatus;
+        }
+
+        private void ChangeCharge()
+        {
+            var percent = Battery.BatteryLifePercent;
+            LbCharge.Text = percent.ToString("P0");
+            percent *= 100;
+            PbCharge.Value = (int)percent;
+            if (percent < Battery.LowBattLevel || percent > Battery.HighBattLevel)
+            {
+                PbColor = Colors.Red;
+                PbCharge.SetState((int)PbColor);
+            }
+            else if (PbColor == Colors.Red)
+            {
+                PbColor = Colors.Green;
+                PbCharge.SetState((int)PbColor);
+            }
         }
 
         private void TmCheckPower_Tick(object sender, EventArgs e)
@@ -146,21 +174,28 @@ namespace BatteryStatus.Forms
 
         private void AlertChecked()
         {
-            Battery.Checked();
+            var _checked = Battery.Checked();
             TmWaitForResp.Enabled = false;
+            if (!_checked)
+                NewNotification(Battery.Msg);
             BtnChecked.Enabled = false;
-            if (!Battery.Charging)
-                NewNotification("No se ha detectado la conexión, puede perder información no salvada");
         }
 
         #region Speak Actions
         private void BtnSpeak_Click(object sender, EventArgs e)
         {
+            _auxVoiceNotify = _voiceNotify;
+            if (!_auxVoiceNotify) _auxVoiceNotify = true;
+            SpeakInfo();
+        }
+
+        private void SpeakInfo()
+        {
             try
             {
                 //NewNotification($@"Batería al {txtCharge.Text}");
-                Voice.AddMessage($@"Batería al {txtCharge.Text}");
-                if (!_voiceNotify) return;
+                Voice.AddMessage($@"Batería al {LbCharge.Text}");
+                if (!_voiceNotify || !_auxVoiceNotify) return;
                 BtnPause.Enabled = true;
                 BtnSpeak.Enabled = false;
             }
@@ -172,7 +207,7 @@ namespace BatteryStatus.Forms
 
         private void BtnPause_Click(object sender, EventArgs e)
         {
-            if (!_voiceNotify) return;
+            if (!_voiceNotify || !_auxVoiceNotify) return;
             Voice.Pause();
             BtnResume.Enabled = true;
             BtnPause.Enabled = false;
@@ -180,7 +215,7 @@ namespace BatteryStatus.Forms
 
         private void BtnResume_Click(object sender, EventArgs e)
         {
-            if (!_voiceNotify) return;
+            if (!_voiceNotify || !_auxVoiceNotify) return;
             Voice.Resume();
             BtnPause.Enabled = true;
             BtnResume.Enabled = false;
@@ -239,8 +274,23 @@ namespace BatteryStatus.Forms
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e) => ShowForm();
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+        private void InformeToolStripMenuItem_Click(object sender, EventArgs e) => SpeakInfo();
+
         #endregion
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
     }
+    public static class ModifyProgressBarColor
+    {
+        public enum Colors
+        {
+            Green = 1, Red, Yellow
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr w, IntPtr l);
+        public static void SetState(this ProgressBar pBar, int state) => SendMessage(pBar.Handle, 1040, (IntPtr)state, IntPtr.Zero);
+    }
+
 }
