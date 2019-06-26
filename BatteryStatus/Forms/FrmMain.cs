@@ -25,7 +25,10 @@ namespace BatteryStatus.Forms
         private readonly bool _show;
 
         public Colors PbColor;
+        //TODO: implement.
+#pragma warning disable 649
         private bool _auxVoiceNotify;
+#pragma warning restore 649
 
         public FrmMain(bool show)
         {
@@ -189,7 +192,7 @@ namespace BatteryStatus.Forms
             TbIdleTime.Text = idleTimeMin.ToString("D");
             if (!Battery.CheckPowerLevel()) return;
             NewNotification(Battery.Msg);
-            if (Battery.Alert == Battery.Alerts.LowBattery) SpeakLifeRemaining();
+            if (Battery.Alert == Battery.Alerts.LowBattery) SpeakLifeRemaining(@"Tiempo de batería restante:");
             TmWaitForResp.Enabled = true;
         }
 
@@ -233,7 +236,7 @@ namespace BatteryStatus.Forms
                 Voice.AddMessage($@"Batería al {LbNivelCharge.Text}.");
 
                 if (TbLifeRemaining.Text != @"--")
-                    SpeakLifeRemaining();
+                    SpeakLifeRemaining(@"Tiempo restante:");
                 if (!_voiceNotify || !_auxVoiceNotify) return;
                 BtnPause.Enabled = true;
                 BtnSpeak.Enabled = false;
@@ -244,9 +247,8 @@ namespace BatteryStatus.Forms
             }
         }
 
-        private void SpeakLifeRemaining()
+        private void SpeakLifeRemaining(string msg)
         {
-            var msg = $@"Tiempo restante:";
             var remaining = TbLifeRemaining.Text.Split(':');
             var hour = Convert.ToInt16(remaining[0]);
             var min = Convert.ToInt16(remaining[1]);
