@@ -9,30 +9,37 @@ namespace BatteryStatus.Utilities
         /// Pc charging status.
         /// </summary>
         public bool IsCharging { get; private set; }
+
         /// <summary>
         /// Alert checked.
         /// </summary>
         public bool ChkAlert { get; private set; }
+
         /// <summary>
         /// Alert emmited.
         /// </summary>
         private bool _auxAlert;
+
         /// <summary>
         /// Min battery level.
         /// </summary>
         public uint LowBattLevel { get; private set; } = 20;
+
         /// <summary>
         /// Max battery level.
         /// </summary>
         public uint HighBattLevel { get; private set; } = 80;
+
         /// <summary>
         /// Alert Message.
         /// </summary>
         public string Msg { get; private set; }
+
         /// <summary>
         /// Object to check the Battery Status.
         /// </summary>
         private PowerStatus Status { get; } = SystemInformation.PowerStatus;
+
         /// <summary>
         /// Available alerts
         /// </summary>
@@ -40,12 +47,14 @@ namespace BatteryStatus.Utilities
         {
             Any, LowBattery, HighBattery
         }
+
         /// <summary>
         /// Current alert
         /// </summary>
         public Alerts Alert { get; private set; } = Alerts.Any;
 
         #region PowerStatusProperties
+
         public string ChargeStatus => Status.BatteryChargeStatus == 0 ? "Normal" : Status.BatteryChargeStatus.ToString();
         public string BatteryFullLifetime => Status.BatteryFullLifetime == -1 ? "--" : Status.BatteryFullLifetime.ToString();
         public float BatteryLifePercent => Status.BatteryLifePercent;
@@ -53,7 +62,7 @@ namespace BatteryStatus.Utilities
 
         public string PowerLineStatus => Status.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Offline ? "Desconectado" : "Cargando";
 
-        #endregion
+        #endregion PowerStatusProperties
 
         public Battery() => PowerModeChanged();
 
@@ -95,6 +104,7 @@ namespace BatteryStatus.Utilities
             if (!ChkAlert)
                 _auxAlert = false;
         }
+
         public bool Checked()
         {
             // ReSharper disable once RedundantAssignment
@@ -104,12 +114,15 @@ namespace BatteryStatus.Utilities
                 case Alerts.HighBattery when IsCharging:
                     Msg = @"Recuerde que la vida de la batería podría verse afectada";
                     break;
+
                 case Alerts.LowBattery when !IsCharging:
                     Msg = @"No se ha detectado la conexión, puede perder información no salvada";
                     break;
+
                 case Alerts.Any:
                     Msg = @"No había ninguna notificación";
                     break;
+
                 default:
                     //throw new ArgumentOutOfRangeException();
                     resp = true;

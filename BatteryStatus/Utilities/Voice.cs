@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading;
 using System.Windows.Forms;
-using AudioSwitcher.AudioApi.CoreAudio;
 
 namespace BatteryStatus.Utilities
 {
@@ -42,6 +42,7 @@ namespace BatteryStatus.Utilities
                 throw new Exception($"Error en la configuración de la voz de la aplicación:\n{exc.Message}");
             }
         }
+
         public void GetVoices()
         {
             var installedVoices = _synth.GetInstalledVoices();
@@ -82,9 +83,7 @@ namespace BatteryStatus.Utilities
                     ? $@" Audio formats: {audioFormats}"
                     : @" No supported audio formats found");
 
-                var additionalInfo = info.AdditionalInfo.Keys.Aggregate("", (current, key) => current + $"  {key}: {info.AdditionalInfo[key]}\n");
-
-                Debug.WriteLine($@" Additional Info - {additionalInfo}");
+                Debug.WriteLine($@" Additional Info - {info.AdditionalInfo.Keys.Aggregate("", (current, key) => current + $"  {key}: {info.AdditionalInfo[key]}\n")}");
             }
         }
 
@@ -129,7 +128,6 @@ namespace BatteryStatus.Utilities
             if (_msgs.Count > 0) return;
             _spkCompleted();
         }
-
 
         public void AddMessage(string msg)
         {

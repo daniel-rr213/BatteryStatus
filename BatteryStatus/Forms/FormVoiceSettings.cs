@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BatteryStatus.Utilities;
+using System;
 using System.Windows.Forms;
-using BatteryStatus.Utilities;
 
 namespace BatteryStatus.Forms
 {
@@ -46,9 +46,11 @@ namespace BatteryStatus.Forms
                 case NumericUpDown ham:
                     TbTestVol.Value = (int)ham.Value;
                     break;
+
                 case TrackBar ham:
                     NudTestVol.Value = ham.Value;
                     break;
+
                 default:
                     MessageBox.Show($@"Control '{sender.GetType().Name}' no admitido", @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
@@ -63,9 +65,11 @@ namespace BatteryStatus.Forms
                 case NumericUpDown ham:
                     TbNotVol.Value = (int)ham.Value;
                     break;
+
                 case TrackBar ham:
                     NudNotVol.Value = ham.Value;
                     break;
+
                 default:
                     MessageBox.Show($@"Control '{sender.GetType().Name}' no admitido", @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
@@ -90,7 +94,7 @@ namespace BatteryStatus.Forms
         {
             _voice.ChangeCurrentVoice(CbVoices.SelectedItem.ToString());
             _voice.ChangeSyntVolume(TbTestVol.Value);
-            _voice.ChangeNotVolume((uint) NudNotVol.Value);
+            _voice.ChangeNotVolume((uint)NudNotVol.Value);
             Changes = true;
             Close();
         }

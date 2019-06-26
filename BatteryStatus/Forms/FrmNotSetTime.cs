@@ -11,6 +11,7 @@ namespace BatteryStatus.Forms
         public uint LowBattery { get; private set; }
         public uint HighBattery { get; private set; }
         public bool Changes { get; private set; }
+
         public FrmNotSetTime(uint timeBattChk, uint auxTimeBattChk, uint idleTime, uint lowBattery, uint highBattery)
         {
             InitializeComponent();

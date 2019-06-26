@@ -9,14 +9,13 @@ namespace BatteryStatus.Utilities
 
         public uint DwTime;
     }
+
     public class PcInnactivity
     {
         public uint MaxIdleTime { get; private set; } = 5;
 
-
         [DllImport("User32.dll")]
         private static extern bool GetLastInputInfo(ref Lastinputinfo plii);
-
 
         public static uint GetIdleTime()
         {

@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BatteryStatus.Forms;
+using System;
 using System.Windows.Forms;
-using BatteryStatus.Forms;
 
 namespace BatteryStatus
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

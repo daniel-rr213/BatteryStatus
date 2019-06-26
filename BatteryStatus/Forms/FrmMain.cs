@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BatteryStatus.Utilities;
+using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using BatteryStatus.Utilities;
-using Microsoft.Win32;
 using static BatteryStatus.Forms.ModifyProgressBarColor;
 
 namespace BatteryStatus.Forms
@@ -34,6 +34,7 @@ namespace BatteryStatus.Forms
         }
 
         #region FormEvents
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             AutoRunLoad();
@@ -105,9 +106,10 @@ namespace BatteryStatus.Forms
             WindowState = FormWindowState.Normal;
         }
 
-        #endregion
+        #endregion FormEvents
 
         #region AutoRun
+
         private void AutoRunLoad()
         {
             _reg = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
@@ -133,7 +135,8 @@ namespace BatteryStatus.Forms
                 MessageBox.Show(exc.Message, @"Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
+
+        #endregion AutoRun
 
         private void PowerModeChanged(object sender, PowerModeChangedEventArgs e)
         {
@@ -161,12 +164,17 @@ namespace BatteryStatus.Forms
             LbCharge.Text = percent.ToString("P0");
             percent *= 100;
             PbCharge.Value = (int)percent;
-            if (percent < Battery.LowBattLevel || percent > Battery.HighBattLevel)
+            if (percent < Battery.LowBattLevel)
             {
                 PbColor = Colors.Red;
                 PbCharge.SetState((int)PbColor);
             }
-            else if (PbColor == Colors.Red)
+            else if (percent > Battery.HighBattLevel)
+            {
+                PbColor = Colors.Yellow;
+                PbCharge.SetState((int)PbColor);
+            }
+            else if (PbColor != Colors.Green)
             {
                 PbColor = Colors.Green;
                 PbCharge.SetState((int)PbColor);
@@ -189,6 +197,7 @@ namespace BatteryStatus.Forms
             Battery.WaitForResp();
             TmWaitForResp.Enabled = false;
         }
+
         private void NewNotification(string msg)
         {
             BtnChecked.Enabled = true;
@@ -209,10 +218,10 @@ namespace BatteryStatus.Forms
         }
 
         #region Speak Actions
+
         private void BtnSpeak_Click(object sender, EventArgs e)
         {
-            _auxVoiceNotify = _voiceNotify;
-            if (!_auxVoiceNotify) _auxVoiceNotify = true;
+            _auxVoiceNotify = _voiceNotify || !_auxVoiceNotify;
             SpeakInfo();
         }
 
@@ -247,15 +256,17 @@ namespace BatteryStatus.Forms
             BtnPause.Enabled = true;
             BtnResume.Enabled = false;
         }
+
         private void VoiceCompleted() => Invoke(new Action(() =>
         {
             BtnPause.Enabled = false;
             BtnSpeak.Enabled = true;
         }));
 
-        #endregion
+        #endregion Speak Actions
 
         #region MenuStrip
+
         private void VoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -306,9 +317,10 @@ namespace BatteryStatus.Forms
             TmWaitForResp.Start();
         }
 
-        #endregion
+        #endregion MenuStrip
 
         #region ContextMenuStrip
+
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e) => ShowForm();
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
@@ -317,10 +329,11 @@ namespace BatteryStatus.Forms
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e) => new FormAbout().ShowDialog();
 
-        #endregion
+        #endregion ContextMenuStrip
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) => ShowForm();
     }
+
     public static class ModifyProgressBarColor
     {
         public enum Colors
@@ -330,7 +343,7 @@ namespace BatteryStatus.Forms
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr w, IntPtr l);
+
         public static void SetState(this ProgressBar pBar, int state) => SendMessage(pBar.Handle, 1040, (IntPtr)state, IntPtr.Zero);
     }
-
 }
