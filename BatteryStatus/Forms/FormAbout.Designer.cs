@@ -33,6 +33,8 @@
             this.lnklb_emailAuthor = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.LbVersionTxt = new System.Windows.Forms.Label();
+            this.LbVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,11 +77,31 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // LbVersionTxt
+            // 
+            this.LbVersionTxt.AutoSize = true;
+            this.LbVersionTxt.Location = new System.Drawing.Point(181, 85);
+            this.LbVersionTxt.Name = "LbVersionTxt";
+            this.LbVersionTxt.Size = new System.Drawing.Size(56, 17);
+            this.LbVersionTxt.TabIndex = 9;
+            this.LbVersionTxt.Text = "Versión";
+            // 
+            // LbVersion
+            // 
+            this.LbVersion.AutoSize = true;
+            this.LbVersion.Location = new System.Drawing.Point(184, 112);
+            this.LbVersion.Name = "LbVersion";
+            this.LbVersion.Size = new System.Drawing.Size(29, 17);
+            this.LbVersion.TabIndex = 10;
+            this.LbVersion.Text = "V.1";
+            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(616, 210);
+            this.Controls.Add(this.LbVersion);
+            this.Controls.Add(this.LbVersionTxt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lnklb_emailAuthor);
             this.Controls.Add(this.lb_InfoAuthor);
@@ -88,6 +110,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormAbout";
             this.Text = "FormAbout";
+            this.Load += new System.EventHandler(this.FormAbout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -99,5 +122,7 @@
         private System.Windows.Forms.LinkLabel lnklb_emailAuthor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label LbVersionTxt;
+        private System.Windows.Forms.Label LbVersion;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using BatteryStatus.Utilities;
 using Microsoft.Win32;
 using System;
+using System.Deployment.Application;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -46,6 +48,9 @@ namespace BatteryStatus.Forms
             SystemEvents.PowerModeChanged += PowerModeChanged;
             ShowPowerStatus();
             BtnChecked.EnabledChanged += BtnChecked_EnabledChanged;
+            if (!ApplicationDeployment.IsNetworkDeployed) return;
+            Debug.Write(
+                $@"v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}");
             try
             {
                 Voice = new Voice(VoiceCompleted);

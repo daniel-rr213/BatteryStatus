@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Deployment.Application;
+using System.Windows.Forms;
 
 namespace BatteryStatus.Forms
 {
@@ -7,6 +8,13 @@ namespace BatteryStatus.Forms
         public FormAbout()
         {
             InitializeComponent();
+        }
+
+        private void FormAbout_Load(object sender, System.EventArgs e)
+        {
+            if (!ApplicationDeployment.IsNetworkDeployed) return;
+            Text =
+                $@"v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}";
         }
 
         //private void LinkLabel_DoubleClick(object sender, EventArgs e)
