@@ -76,7 +76,7 @@
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(99, 34);
             this.BtnCancel.TabIndex = 7;
-            this.BtnCancel.Text = "&Cancel";
+            this.BtnCancel.Text = "&Cancelar";
             this.BtnCancel.UseVisualStyleBackColor = true;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
@@ -87,7 +87,7 @@
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(99, 34);
             this.BtnSave.TabIndex = 8;
-            this.BtnSave.Text = "&Save";
+            this.BtnSave.Text = "&Guardar";
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
@@ -100,7 +100,7 @@
             this.GbNotVol.Size = new System.Drawing.Size(315, 121);
             this.GbNotVol.TabIndex = 6;
             this.GbNotVol.TabStop = false;
-            this.GbNotVol.Text = "&Notification NotVolume";
+            this.GbNotVol.Text = "&Volumen de la notificación";
             // 
             // NudNotVol
             // 
@@ -129,7 +129,7 @@
             this.GbTestVolume.Size = new System.Drawing.Size(315, 121);
             this.GbTestVolume.TabIndex = 5;
             this.GbTestVolume.TabStop = false;
-            this.GbTestVolume.Text = "&Test Volume";
+            this.GbTestVolume.Text = "&Volumen de la prueba";
             // 
             // NudTestVol
             // 
@@ -161,18 +161,17 @@
             this.BtnRead.Name = "BtnRead";
             this.BtnRead.Size = new System.Drawing.Size(83, 34);
             this.BtnRead.TabIndex = 4;
-            this.BtnRead.Text = "&Read";
+            this.BtnRead.Text = "&Hablar";
             this.BtnRead.UseVisualStyleBackColor = true;
             this.BtnRead.Click += new System.EventHandler(this.BtnRead_Click);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 91);
+            this.label2.Location = new System.Drawing.Point(6, 80);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 17);
+            this.label2.Size = new System.Drawing.Size(305, 40);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Write test &text";
+            this.label2.Text = "Ingrese un texto para escuchar la voz seleccionada";
             // 
             // TbTest
             // 
@@ -197,9 +196,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 17);
+            this.label1.Size = new System.Drawing.Size(191, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Choose the &voice";
+            this.label1.Text = "Escoja una voz seleccionada";
             // 
             // FormVoiceSettings
             // 
@@ -209,7 +208,7 @@
             this.Controls.Add(this.GbVoiceSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormVoiceSettings";
-            this.Text = "VoiceSettings";
+            this.Text = "Configuración sintetizador de voz";
             this.Load += new System.EventHandler(this.VoiceSettings_Load);
             this.GbVoiceSettings.ResumeLayout(false);
             this.GbVoiceSettings.PerformLayout();
