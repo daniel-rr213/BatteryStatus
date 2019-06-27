@@ -1,4 +1,6 @@
 ﻿using System.Deployment.Application;
+using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace BatteryStatus.Forms
@@ -12,9 +14,7 @@ namespace BatteryStatus.Forms
 
         private void FormAbout_Load(object sender, System.EventArgs e)
         {
-            if (!ApplicationDeployment.IsNetworkDeployed) return;
-            Text =
-                $@"v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}";
+            LbVersion.Text = ApplicationDeployment.IsNetworkDeployed ? $@"v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}" : Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         //private void LinkLabel_DoubleClick(object sender, EventArgs e)

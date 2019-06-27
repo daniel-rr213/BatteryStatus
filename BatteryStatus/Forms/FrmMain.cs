@@ -1,11 +1,13 @@
-﻿using BatteryStatus.Utilities;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using BatteryStatus.Properties;
+using BatteryStatus.Utilities;
+using Microsoft.Win32;
 using static BatteryStatus.Forms.ModifyProgressBarColor;
 
 namespace BatteryStatus.Forms
@@ -48,9 +50,7 @@ namespace BatteryStatus.Forms
             SystemEvents.PowerModeChanged += PowerModeChanged;
             ShowPowerStatus();
             BtnChecked.EnabledChanged += BtnChecked_EnabledChanged;
-            if (!ApplicationDeployment.IsNetworkDeployed) return;
-            Debug.Write(
-                $@"v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}");
+
             try
             {
                 Voice = new Voice(VoiceCompleted);
@@ -67,18 +67,18 @@ namespace BatteryStatus.Forms
 
         private void LoadPropeties()
         {
-            Battery.ChangeHighBattLevel(Properties.Settings.Default.BatteryHigh);
-            Battery.ChangeLowBattLevel(Properties.Settings.Default.BatteryLow);
-            PcInnactivity.ChangeMaxIdleTime(Properties.Settings.Default.PcIdleTime);
-            _timeBattChk = Properties.Settings.Default.TimeBattChk;
-            _auxTimeBattChk = Properties.Settings.Default.TimeAuxBattChk;
-            Voice?.ChangeNotVolume(Properties.Settings.Default.VolNot);
-            if (Properties.Settings.Default.VoiceName != string.Empty)
-                Voice?.ChangeCurrentVoice(Properties.Settings.Default.VoiceName);
+            Battery.ChangeHighBattLevel(Settings.Default.BatteryHigh);
+            Battery.ChangeLowBattLevel(Settings.Default.BatteryLow);
+            PcInnactivity.ChangeMaxIdleTime(Settings.Default.PcIdleTime);
+            _timeBattChk = Settings.Default.TimeBattChk;
+            _auxTimeBattChk = Settings.Default.TimeAuxBattChk;
+            Voice?.ChangeNotVolume(Settings.Default.VolNot);
+            if (Settings.Default.VoiceName != string.Empty)
+                Voice?.ChangeCurrentVoice(Settings.Default.VoiceName);
             else
             {
-                Properties.Settings.Default.VoiceName = Voice?.CurrenVoice;
-                Properties.Settings.Default.Save();
+                Settings.Default.VoiceName = Voice?.CurrenVoice;
+                Settings.Default.Save();
             }
         }
 
@@ -124,7 +124,7 @@ namespace BatteryStatus.Forms
             var autoRun = _reg?.GetValue(ApplicationName) != null;
             ChBAutoRun.Checked = autoRun;
             ChBAutoRun.CheckStateChanged += ChBAutoRun_CheckStateChanged;
-            _applicationPath = System.Reflection.Assembly.GetEntryAssembly()?.Location;
+            _applicationPath = Assembly.GetEntryAssembly()?.Location;
         }
 
         private void ChBAutoRun_CheckStateChanged(object sender, EventArgs e) => ChangeAutoRun(((CheckBox)sender).Checked);
@@ -302,9 +302,9 @@ namespace BatteryStatus.Forms
                 var voiceSettings = new FormVoiceSettings(Voice);
                 voiceSettings.ShowDialog();
                 if (!voiceSettings.Changes) return;
-                Properties.Settings.Default.VoiceName = voiceSettings.CurrenVoice;
-                Properties.Settings.Default.VolNot = voiceSettings.NotVolume;
-                Properties.Settings.Default.Save();
+                Settings.Default.VoiceName = voiceSettings.CurrenVoice;
+                Settings.Default.VolNot = voiceSettings.NotVolume;
+                Settings.Default.Save();
                 Voice.ChangeCurrentVoice(voiceSettings.CurrenVoice);
                 Voice.ChangeNotVolume(voiceSettings.NotVolume);
             }
@@ -329,12 +329,12 @@ namespace BatteryStatus.Forms
             Battery.ChangeHighBattLevel(frmNotSetTime.HighBattery);
             PcInnactivity.ChangeMaxIdleTime(frmNotSetTime.IdleTime);
             //Save in properties
-            Properties.Settings.Default.BatteryHigh = Battery.HighBattLevel;
-            Properties.Settings.Default.BatteryLow = Battery.LowBattLevel;
-            Properties.Settings.Default.PcIdleTime = PcInnactivity.MaxIdleTime;
-            Properties.Settings.Default.TimeBattChk = _timeBattChk;
-            Properties.Settings.Default.TimeAuxBattChk = _auxTimeBattChk;
-            Properties.Settings.Default.Save();
+            Settings.Default.BatteryHigh = Battery.HighBattLevel;
+            Settings.Default.BatteryLow = Battery.LowBattLevel;
+            Settings.Default.PcIdleTime = PcInnactivity.MaxIdleTime;
+            Settings.Default.TimeBattChk = _timeBattChk;
+            Settings.Default.TimeAuxBattChk = _auxTimeBattChk;
+            Settings.Default.Save();
             //Changes timer intervals.
             TmCheckPower.Interval = (int)_timeBattChk * 1000;
             TmWaitForResp.Interval = (int)_auxTimeBattChk * 60000;
