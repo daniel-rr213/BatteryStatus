@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.GbBattLevel = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             this.NudTimeChk = new System.Windows.Forms.NumericUpDown();
             this.BtnCancel = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.GbBattLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudLowBattLevel)).BeginInit();
@@ -51,12 +53,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.NudIdleTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudTimeNot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudTimeChk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.GbBattLevel);
             this.groupBox1.Controls.Add(this.GbTimeSettings);
@@ -64,20 +66,22 @@
             this.groupBox1.Controls.Add(this.BtnSave);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(344, 340);
+            this.groupBox1.Size = new System.Drawing.Size(368, 340);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuración de las notificaciones";
             // 
             // GbBattLevel
             // 
+            this.GbBattLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GbBattLevel.Controls.Add(this.label5);
             this.GbBattLevel.Controls.Add(this.NudLowBattLevel);
             this.GbBattLevel.Controls.Add(this.label4);
             this.GbBattLevel.Controls.Add(this.NudHighBattLevel);
             this.GbBattLevel.Location = new System.Drawing.Point(7, 22);
             this.GbBattLevel.Name = "GbBattLevel";
-            this.GbBattLevel.Size = new System.Drawing.Size(320, 92);
+            this.GbBattLevel.Size = new System.Drawing.Size(344, 92);
             this.GbBattLevel.TabIndex = 0;
             this.GbBattLevel.TabStop = false;
             this.GbBattLevel.Text = "Configuración niveles de batería";
@@ -94,11 +98,6 @@
             // NudLowBattLevel
             // 
             this.NudLowBattLevel.Location = new System.Drawing.Point(235, 25);
-            this.NudLowBattLevel.Maximum = new decimal(new int[] {
-            49,
-            0,
-            0,
-            0});
             this.NudLowBattLevel.Minimum = new decimal(new int[] {
             1,
             0,
@@ -113,6 +112,7 @@
             0,
             0,
             0});
+            this.NudLowBattLevel.Validating += new System.ComponentModel.CancelEventHandler(this.NudBattLevel_Validating);
             // 
             // label4
             // 
@@ -127,7 +127,7 @@
             // 
             this.NudHighBattLevel.Location = new System.Drawing.Point(235, 63);
             this.NudHighBattLevel.Minimum = new decimal(new int[] {
-            50,
+            1,
             0,
             0,
             0});
@@ -140,9 +140,12 @@
             0,
             0,
             0});
+            this.NudHighBattLevel.Validating += new System.ComponentModel.CancelEventHandler(this.NudBattLevel_Validating);
             // 
             // GbTimeSettings
             // 
+            this.GbTimeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GbTimeSettings.Controls.Add(this.label1);
             this.GbTimeSettings.Controls.Add(this.NudIdleTime);
             this.GbTimeSettings.Controls.Add(this.label2);
@@ -151,7 +154,7 @@
             this.GbTimeSettings.Controls.Add(this.NudTimeChk);
             this.GbTimeSettings.Location = new System.Drawing.Point(7, 120);
             this.GbTimeSettings.Name = "GbTimeSettings";
-            this.GbTimeSettings.Size = new System.Drawing.Size(320, 165);
+            this.GbTimeSettings.Size = new System.Drawing.Size(344, 165);
             this.GbTimeSettings.TabIndex = 1;
             this.GbTimeSettings.TabStop = false;
             this.GbTimeSettings.Text = "Configuración temporizadores";
@@ -178,7 +181,7 @@
             this.NudIdleTime.TabIndex = 5;
             this.NudIdleTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NudIdleTime.Value = new decimal(new int[] {
-            5,
+            2,
             0,
             0,
             0});
@@ -226,7 +229,7 @@
             // 
             this.NudTimeChk.Location = new System.Drawing.Point(235, 26);
             this.NudTimeChk.Maximum = new decimal(new int[] {
-            10000,
+            600,
             0,
             0,
             0});
@@ -267,11 +270,15 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FrmNotSetTime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 359);
+            this.ClientSize = new System.Drawing.Size(389, 359);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmNotSetTime";
@@ -285,6 +292,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NudIdleTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudTimeNot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudTimeChk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -306,5 +314,6 @@
         private System.Windows.Forms.NumericUpDown NudLowBattLevel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown NudHighBattLevel;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

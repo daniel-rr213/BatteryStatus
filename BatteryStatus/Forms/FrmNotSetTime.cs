@@ -34,5 +34,17 @@ namespace BatteryStatus.Forms
         }
 
         private void BtnCancel_Click(object sender, EventArgs e) => Close();
+
+        private void NudBattLevel_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!(NudLowBattLevel.Value < NudHighBattLevel.Value))
+            {
+                errorProvider1.SetError((NumericUpDown)sender,
+                    "El valor del nivel de batería baja debe ser menor que el de batería alta");
+                e.Cancel = true;
+            }
+            else if (errorProvider1.GetError((NumericUpDown)sender).Length > 0)
+                errorProvider1.SetError((NumericUpDown)sender, string.Empty);
+        }
     }
 }

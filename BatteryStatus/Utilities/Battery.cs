@@ -52,6 +52,10 @@ namespace BatteryStatus.Utilities
         /// Current alert
         /// </summary>
         public Alerts Alert { get; private set; } = Alerts.Any;
+        /// <summary>
+        /// Previus alert.
+        /// </summary>
+        public Alerts PrevAlert { get; private set; } = Alerts.Any;
 
         #region PowerStatusProperties
 
@@ -89,7 +93,10 @@ namespace BatteryStatus.Utilities
                 Alert = Alerts.HighBattery;
             }
             else
+            {
                 Alert = Alerts.Any;
+                ChkAlert = false;
+            }
 
             if (Alert == Alerts.Any) return false;
             _auxAlert = true;
