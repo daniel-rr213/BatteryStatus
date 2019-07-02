@@ -81,7 +81,6 @@ namespace BatteryStatus.Utilities
 
         public bool CheckPowerLevel()
         {
-            if (_auxAlert) return false;
             if (!IsCharging && Status.BatteryLifePercent <= (double)LowBattLevel / 100)
             {
                 Msg = $@"Batería por debajo del {LowBattLevel} %. Conecte la fuente de poder";
@@ -93,12 +92,11 @@ namespace BatteryStatus.Utilities
                 Alert = Alerts.HighBattery;
             }
             else
-            {
                 Alert = Alerts.Any;
-                ChkAlert = false;
-            }
 
             if (Alert == Alerts.Any) return false;
+            if (PrevAlert == Alert && _auxAlert) return false;
+            PrevAlert = Alert;
             _auxAlert = true;
             return true;
         }

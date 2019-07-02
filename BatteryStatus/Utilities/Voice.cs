@@ -43,6 +43,7 @@ namespace BatteryStatus.Utilities
             }
         }
 
+        #region LoadMeethods
         public void GetVoices()
         {
             var installedVoices = _synth.GetInstalledVoices();
@@ -103,17 +104,17 @@ namespace BatteryStatus.Utilities
                 voiceName = voice;
             SelectVoice(voiceName);
         }
-
         private void ThLoadVolumeSett()
         {
             _defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
             Debug.WriteLine("Volume control Loaded");
         }
+        #endregion
 
         public void Close()
         {
-            _thSpeakMsgs?.Abort();
-            _thVolumeSett?.Abort();
+            _synth.StateChanged -= SynthStateChanged;
+            _msgs.Clear();
         }
 
         private void SelectVoice(string voiceName) => _synth.SelectVoice(voiceName);
