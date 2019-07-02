@@ -26,7 +26,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://danielrinconr.github.io/BatteryStatus/BatteryStatus/publish/</InstallUrl>
-    <UpdateUrl>https://danielrinconr.github.io/BatteryStatus/Setup/publish/</UpdateUrl>
+    <UpdateUrl>https://danielrinconr.github.io/BatteryStatus/BatteryStatus/publish/</UpdateUrl>
     <SupportUrl>https://danielrinconr.github.io/BatteryStatus/</SupportUrl>
     <TargetCulture>es-CO</TargetCulture>
     <ProductName>BatteryStatus</ProductName>
