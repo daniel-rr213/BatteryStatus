@@ -20,7 +20,7 @@ namespace BatteryStatus.Utilities
         private CoreAudioDevice _defaultPlaybackDevice;
         private double _prevVol;
         public uint NotVolume = 60;
-        private readonly Thread _thVolumeSett;
+        private Thread ThVolumeSett { get; }
         public string CurrenVoice { get; private set; }
 
         public Voice(Action speakCompleted)
@@ -34,8 +34,8 @@ namespace BatteryStatus.Utilities
                 _msgs = new Queue<string>();
                 _spkCompleted = speakCompleted;
                 _synth.StateChanged += SynthStateChanged;
-                _thVolumeSett = new Thread(ThLoadVolumeSett);
-                _thVolumeSett.Start();
+                ThVolumeSett = new Thread(ThLoadVolumeSett);
+                ThVolumeSett.Start();
             }
             catch (Exception exc)
             {
