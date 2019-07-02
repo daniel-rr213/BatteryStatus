@@ -9,7 +9,7 @@
       <Value Profile="(Default)">80</Value>
     </Setting>
     <Setting Name="PcIdleTime" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="TimeBattChk" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">1</Value>
