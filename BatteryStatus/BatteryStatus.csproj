@@ -28,12 +28,11 @@
     <InstallUrl>https://danielrinconr.github.io/BatteryStatus/BatteryStatus/publish/</InstallUrl>
     <UpdateUrl>https://danielrinconr.github.io/BatteryStatus/BatteryStatus/publish/</UpdateUrl>
     <SupportUrl>https://danielrinconr.github.io/BatteryStatus/</SupportUrl>
-    <TargetCulture>es-CO</TargetCulture>
     <ProductName>BatteryStatus</ProductName>
     <PublisherName>DanielRincón</PublisherName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
