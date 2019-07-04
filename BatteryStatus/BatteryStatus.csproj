@@ -32,7 +32,7 @@
     <PublisherName>DanielRincón</PublisherName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -202,4 +202,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Target Name="SignOutput" AfterTargets="CoreCompile"> 
+<Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\signtool.exe&quot; sign /f &quot;$(ProjectDir)BatteryStatus_TemporaryKey.pfx&quot; &quot;$(ProjectDir)obj\$(ConfigurationName)\BatteryStatus.exe&quot;" /> 
+</Target> 
 </Project>
